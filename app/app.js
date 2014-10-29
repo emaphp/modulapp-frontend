@@ -4,12 +4,6 @@ var Marionette = require('marionette');
 //create app
 var App = new Marionette.Application();
 
-//add regions
-App.addRegions({
-    headerRegion: '#header-region',
-    contentRegion: '#content-region'
-});
-
 //initilize modules
 App.addInitializer(function() {
     console.log('Initializing modules...');
@@ -17,9 +11,30 @@ App.addInitializer(function() {
     App.module('Contacts', require('./contacts/contacts.js'));
 });
 
+//add regions
+App.addRegions({
+    appLayout: '#app-layout'
+});
+
 //start event
 App.on('start', function() {
     console.log('Application is starting...');
+    
+    //get layout views
+    var views = require('./views.js');
+
+    //render layout
+    var layout = views.layout;
+    App.appLayout.show(layout);
+
+    //render layout regions
+    layout.headerRegion.show(views.header);
+    layout.contentRegion.show(views.content);
+
+    //update app regions
+    App.headerRegion = layout.headerRegion;
+    App.contentRegion = layout.contentRegion;
+
     Backbone.history.start();
 });
 
