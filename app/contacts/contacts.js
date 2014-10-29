@@ -6,7 +6,7 @@ var ContactsModule = Marionette.Module.extend({
         console.log("Module 'Contacts' initializing...");
 
         //create router instance
-        var Router = new require('./router.js');
+        var Router = require('./router.js');
         this.router = new Router();
 
         //controller

@@ -26,3 +26,12 @@ node_modules
 
 # Users Environment Variables
 .lock-wscript
+
+# Font-Awesome
+*.svg
+*.eot
+*.ttf
+*.woff
+
+# Webpack
+bundle.js

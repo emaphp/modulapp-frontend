@@ -1,3 +1,4 @@
+var Backbone = require('backbone');
 var Marionette = require('marionette');
 
 //create app
@@ -19,6 +20,7 @@ App.addInitializer(function() {
 //start event
 App.on('start', function() {
     console.log('Application is starting...');
+    Backbone.history.start();
 });
 
 module.exports = App;

@@ -11,4 +11,4 @@ var NotesRouter = Marionette.AppRouter.extend({
     }
 });
 
-return NotesRouter;
+module.exports = NotesRouter;

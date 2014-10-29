@@ -2,7 +2,7 @@ var Marionette = require('marionette');
 
 var NotesController = Marionette.Controller.extend({
     initialize: function() {
-        console.log('Im being called...');
+        console.log("Controller in module 'Notes' is starting...");
     },
 
     list: function() {

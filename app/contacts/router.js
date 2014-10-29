@@ -11,4 +11,4 @@ var ContactsRouter = Marionette.AppRouter.extend({
     }
 });
 
-return ContactsRouter;
+module.exports = ContactsRouter;

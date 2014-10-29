@@ -2,7 +2,7 @@ var Marionette = require('marionette');
 
 var ContactsController = Marionette.Controller.extend({
     initialize: function() {
-        console.log('Im being called...');
+        console.log("Controller in module 'Contacts' is starting...");
     },
 
     list: function() {
