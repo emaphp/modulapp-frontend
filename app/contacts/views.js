@@ -32,7 +32,8 @@ var ContactListView = Marionette.CompositeView.extend({
 var ContactDetailView = Marionette.ItemView.extend({
     tagName: 'div',
     template: function (model) {
-
+        var tpl = require('./templates/detail.html');
+        return tpl(model);
     }
 });
 

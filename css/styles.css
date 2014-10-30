@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Comfortaa);
+
 * {
     box-sizing: border-box;
 }
@@ -27,9 +29,10 @@ a:focus {
 }
 
 .home-menu .pure-menu-heading {
-    color: white;
+    color: #eee;
     font-weight: 400;
     font-size: 120%;
+    font-family: "Comfortaa", "Open-Sans", sans-serif, serif;
 }
 
 .home-menu .pure-menu-selected a {

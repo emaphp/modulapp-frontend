@@ -1,12 +1,12 @@
 var Marionette = require('marionette');
 
 var NotesController = Marionette.Controller.extend({
-    initialize: function() {
+    initialize: function(options) {
         console.log("Controller in module 'Notes' is starting...");
+        this.app = options.app;
     },
 
     list: function() {
-
     },
 
     detail: function() {
@@ -22,4 +22,4 @@ var NotesController = Marionette.Controller.extend({
     }
 });
 
-module.exports = new NotesController();
+module.exports = NotesController;
