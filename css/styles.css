@@ -22,9 +22,7 @@ a:focus {
     background: #2d3e50;
 }
 .pure-menu.pure-menu-open.pure-menu-fixed {
-    /* Fixed menus normally have a border at the bottom. */
     border-bottom: none;
-    /* I need a higher z-index here because of the scroll-over effect. */
     z-index: 4;
 }
 
@@ -36,11 +34,11 @@ a:focus {
 }
 
 .home-menu .pure-menu-selected a {
-    color: white;
+    color: rgba(109, 227, 246, 1);
 }
 
 .home-menu a {
-    color: #6FBEF3;
+    color: rgba(109, 162, 198, 1);
 }
 .home-menu li a:hover,
 .home-menu li a:focus {
@@ -80,6 +78,11 @@ a:focus {
     font-family: Georgia, "Cambria", serif;
     color: #444;
     line-height: 1.8em;
+}
+
+.empty-message {
+    text-align: center;
+    margin-top: 2.5em;
 }
 
 @media (max-width: 320px) {

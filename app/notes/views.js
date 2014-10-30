@@ -20,26 +20,36 @@ var NoteView = Marionette.ItemView.extend({
     }
 });
 
+var NoteEmptyListView = Marionette.ItemView.extend({
+    tagName: 'div',
+
+    template: function() {
+        return require('./templates/_empty.html');
+    }
+});
+
 var NoteListView = Marionette.CompositeView.extend({
+    emptyView: NoteEmptyListView,
     childView: NoteView,
     childViewContainer: '#notes-list',
     template: function(collection) {
-        var tpl = require('./templates/list.html');
-        return tpl(collection);
+        return require('./templates/list.html');
     }
 });
 
 var NoteDetailView = Marionette.ItemView.extend({
     tagName: 'div',
     template: function (model) {
-
+        var tpl = require('./templates/detail.html');
+        return tpl(model);
     }
 });
 
 var NoteCreateView = Marionette.ItemView.extend({
     tagName: 'div',
     template: function(model) {
-
+        var tpl = require('./templates/create.html');
+        return tpl(model);
     },
     
     events: {
@@ -55,7 +65,8 @@ var NoteEditView = Marionette.ItemView.extend({
     tagName: 'div',
 
     template: function(model) {
-
+        var tpl = require('./templates/edit.html');
+        return tpl(model);
     },
 
     events: {
