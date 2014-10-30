@@ -48,16 +48,31 @@ var NoteDetailView = Marionette.ItemView.extend({
 var NoteCreateView = Marionette.ItemView.extend({
     tagName: 'div',
     template: function(model) {
-        var tpl = require('./templates/create.html');
-        return tpl(model);
+        return require('./templates/create.html');
     },
     
     events: {
-        "click .save": "save"
+        "click .save": "save",
+        "click .cancel": "cancel"
     },
 
     save: function() {
+        var Note = Models.Note;
+        var moment = require('moment');
 
+        var note = new Note();
+        note.set({
+            title: this.$el.find('#title').val(),
+            body: this.$el.find('#body').val(),
+            createdAt: moment().format()
+        });
+        note.save();
+
+        Backbone.history.navigate("notes/list", true);
+    },
+
+    cancel: function() {
+        Backbone.history.navigate("notes/list", true);
     }
 });
 

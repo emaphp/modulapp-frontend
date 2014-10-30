@@ -87,13 +87,55 @@ a:focus {
     margin-top: 2.5em;
 }
 
+.content-subheader {
+    margin-bottom: 0.8em;
+    padding-bottom: 0.7em;
+    overflow: hidden;
+    border-bottom: double 3px #eee;
+}
+
+.content-subheader .pure-button {
+    font-size: 0.8em;
+    float: right;
+    color: #fefefe;
+}
+
+.content-footer {
+    margin-bottom: 0.8em;
+    padding-bottom: 0.7em;
+    overflow: hidden;
+}
+
+.content-footer .pure-button {
+    font-size: 0.8em;
+    float: left;
+    color: #fefefe;
+    margin: 1.3em 0.3em 0 0;
+}
+
+a.pure-button:hover,a.pure-button:focus {
+    text-decoration: none;
+}
+
+.button-success {
+    background: rgb(28, 184, 65); /* this is a green */
+}
+
+.button-error {
+    background: rgb(202, 60, 60); /* this is a maroon */
+}
+
+.pure-form {
+    font-size: 0.8em;
+}
+
 @media (max-width: 320px) {
     .home-menu {
         font-size: 0.75em;
     }
 
     .content {
-        margin-top: 1.9em;
+        margin-top: 1.6em;
     }
 }
 
@@ -103,6 +145,6 @@ a:focus {
     }
 
     .content {
-        margin-top: 2em;
+        margin-top: 1.7em;
     }
 }
