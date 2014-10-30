@@ -14,7 +14,7 @@ a:focus {
 }
 
 .home-menu {
-    padding: 0.5em;
+    padding: 0.4em;
     text-align: center;
     box-shadow: 0 1px 1px rgba(0,0,0, 0.10);
 }
@@ -29,7 +29,7 @@ a:focus {
 .home-menu .pure-menu-heading {
     color: #eee;
     font-weight: 400;
-    font-size: 120%;
+    font-size: 110%;
     font-family: "Comfortaa", "Open-Sans", sans-serif, serif;
 }
 
@@ -39,12 +39,14 @@ a:focus {
 
 .home-menu a {
     color: rgba(109, 162, 198, 1);
+    padding: 0.3em 0.6em !important;
 }
 .home-menu li a:hover,
 .home-menu li a:focus {
     background: none;
     border: none;
     color: #AECFE5;
+    text-decoration: none;
 }
 
 .content {
