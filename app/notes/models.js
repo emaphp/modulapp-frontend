@@ -5,12 +5,12 @@ var Note = Backbone.Model.extend({
     urlRoot: Config.Notes.endPoint
 });
 
-var NoteCollection = Backbone.Collection.extend({
+var NotesCollection = Backbone.Collection.extend({
     model: Note,
     url: Config.Notes.endPoint
 });
 
 module.exports = {
     Note: Note,
-    NoteCollection: NoteCollection
+    NotesCollection: NotesCollection
 };

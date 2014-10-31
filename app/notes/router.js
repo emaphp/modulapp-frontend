@@ -1,9 +1,9 @@
 var Marionette = require('marionette');
 
 var NotesRouter = Marionette.AppRouter.extend({
-    initialize: function(options) {
+    initialize: function(controller) {
         //set controller
-        this.controller = options.controller;
+        this.controller = controller;
 
         //append routes
         this.processAppRoutes(this.controller, {

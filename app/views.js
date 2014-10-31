@@ -25,16 +25,14 @@ var AppHeaderView = Marionette.ItemView.extend({
         "click #option-contacts": "initContacts"
     },
 
-    initNotes: function() {
+    initNotes: function(evnt) {
         this.$el.find('#option-notes').blur().parent().addClass("pure-menu-selected");
         this.$el.find('#option-contacts').parent().removeClass("pure-menu-selected");
-        Backbone.history.navigate("notes/list", true);
     },
 
-    initContacts: function() {
+    initContacts: function(evnt) {
         this.$el.find('#option-contacts').blur().parent().addClass("pure-menu-selected");
         this.$el.find('#option-notes').parent().removeClass("pure-menu-selected");
-        Backbone.history.navigate("contacts/list", true);
     }
 });
 

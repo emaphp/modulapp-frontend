@@ -6,6 +6,10 @@ var NoteView = Marionette.ItemView.extend({
     model: Models.Note,
     tagName: 'div',
     
+    initialize: function() {
+        this.listenTo(this.model, "change", this.render);
+    },
+
     template: function(model) {
         var tpl = require('./templates/_item.html');
         return tpl(model);
@@ -32,7 +36,8 @@ var NoteListView = Marionette.CompositeView.extend({
     emptyView: NoteEmptyListView,
     childView: NoteView,
     childViewContainer: '#notes-list',
-    template: function(collection) {
+
+    template: function() {
         return require('./templates/list.html');
     }
 });
@@ -47,32 +52,31 @@ var NoteDetailView = Marionette.ItemView.extend({
 
 var NoteCreateView = Marionette.ItemView.extend({
     tagName: 'div',
-    template: function(model) {
+    template: function() {
         return require('./templates/create.html');
     },
     
     events: {
         "click .save": "save",
-        "click .cancel": "cancel"
     },
 
-    save: function() {
+    save: function(evnt) {
+        evnt.preventDefault();
         var Note = Models.Note;
         var moment = require('moment');
 
-        var note = new Note();
-        note.set({
+        var note = new Note({
             title: this.$el.find('#title').val(),
             body: this.$el.find('#body').val(),
             createdAt: moment().format()
         });
-        note.save();
-
-        Backbone.history.navigate("notes/list", true);
-    },
-
-    cancel: function() {
-        Backbone.history.navigate("notes/list", true);
+        note.save(note.attributes, {
+            success: function() {
+                var storage = require('./storage.js');
+                storage.add(note);
+                Backbone.history.navigate("notes/list", true);
+            }
+        });
     }
 });
 
@@ -85,11 +89,11 @@ var NoteEditView = Marionette.ItemView.extend({
     },
 
     events: {
-        "click .save": "saveNote"
+        "click .save": "save"
     },
 
-    saveNote: function() {
-
+    save: function(evnt) {
+        evnt.preventDefault();
     }
 });
 

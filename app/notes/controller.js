@@ -1,48 +1,33 @@
 var Marionette = require('marionette');
+var Views = require('./views.js');
 
 var NotesController = Marionette.Controller.extend({
-    initialize: function(options) {
+    initialize: function(app) {
         console.log("Controller in module 'Notes' is starting...");
-        this.app = options.app;
-    },
-
-    getCollection: function() {
-        if (typeof(this.collection) == 'undefined') {
-            var NoteCollection = require('./models.js').NoteCollection;
-            this.collection = new NoteCollection();
-            this.collection.fetch({
-                success: function() {
-                    console.log('Notes collection has been fetched');
-                },
-                error: function() {
-                    console.log('Notes collection failed to initialize');
-                }
-            });
-        }
-
-        return this.collection;
+        this.app = app;
+        this.storage = require('./storage.js');
     },
 
     list: function() {
-        var NoteListView = require('./views.js').NoteListView;
-        var view = new NoteListView({collection: this.getCollection()});
+        var NoteListView = Views.NoteListView;
+        var view = new NoteListView({collection: this.storage.fetch()});
         this.app.contentRegion.show(view);
     },
 
     detail: function(id) {
-        var NoteDetailView = require('./views.js').NoteDetailView;
-        var view = new NoteDetailView({model: this.collection.get(id)});
+        var NoteDetailView = Views.NoteDetailView;
+        var view = new NoteDetailView({model: this.storage.get(id)});
         this.app.contentRegion.show(view);
     },
 
     create: function() {
-        var NoteCreateView = require('./views.js').NoteCreateView;
+        var NoteCreateView = Views.NoteCreateView;
         var view = new NoteCreateView();
         this.app.contentRegion.show(view);
     },
 
     edit: function() {
-        var NoteEditView = require('./views.js').NoteEditView;
+        var NoteEditView = Views.NoteEditView;
         var view = new NoteEditView({model: this.collection.get(id)});
         this.app.contentRegion.show(view);
     }
