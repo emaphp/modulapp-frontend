@@ -26,9 +26,9 @@ var NotesController = Marionette.Controller.extend({
         this.app.contentRegion.show(view);
     },
 
-    edit: function() {
+    edit: function(id) {
         var NoteEditView = Views.NoteEditView;
-        var view = new NoteEditView({model: this.collection.get(id)});
+        var view = new NoteEditView({model: this.storage.get(id)});
         this.app.contentRegion.show(view);
     }
 });

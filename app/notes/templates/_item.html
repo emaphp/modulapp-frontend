@@ -1,13 +1,13 @@
 <section class="note">
     <header class="note-header">
         <span class="note-title"><%=title%></span>
-        &nbsp;//&nbsp;
+        &nbsp;-&nbsp;
         <em>Created&nbsp;<a href="#"><% print(require('moment')(createdAt).fromNow()) %></a></em>
     </header>
     <div class="note-body">
         <p><%=body%></p>
     </div>
     <div class="note-footer">
-        <a href="#notes/edit/<%=id%>"><i class="fa fa-pencil"></i>&nbsp;Edit</a> // <a href="#" class="delete"><i class="fa fa-trash"></i>&nbsp;Delete</a>
+        <a href="#notes/edit/<%=id%>"><i class="fa fa-pencil"></i>&nbsp;Edit</a> / <a href="#" class="delete"><i class="fa fa-trash"></i>&nbsp;Delete</a>
     </div>
 </section>

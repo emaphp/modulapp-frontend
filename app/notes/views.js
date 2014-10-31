@@ -42,14 +42,6 @@ var NoteListView = Marionette.CompositeView.extend({
     }
 });
 
-var NoteDetailView = Marionette.ItemView.extend({
-    tagName: 'div',
-    template: function (model) {
-        var tpl = require('./templates/detail.html');
-        return tpl(model);
-    }
-});
-
 var NoteCreateView = Marionette.ItemView.extend({
     tagName: 'div',
     template: function() {
@@ -94,13 +86,18 @@ var NoteEditView = Marionette.ItemView.extend({
 
     save: function(evnt) {
         evnt.preventDefault();
+        var note = this.model;
+        note.set({title: this.$el.find('#title').val(),
+            body: this.$el.find('#body').val()
+        });
+        note.save();
+        Backbone.history.navigate("notes/list", true);
     }
 });
 
 module.exports = {
     NoteView: NoteView,
     NoteListView: NoteListView,
-    NoteDetailView: NoteDetailView,
     NoteCreateView: NoteCreateView,
     NoteEditView: NoteEditView
 };
