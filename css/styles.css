@@ -64,22 +64,40 @@ a:focus {
     letter-spacing: 0.1em;
 }
 
-.post-title {
-    font-size: 2em;
-    color: #222;
-    margin-bottom: 0.2em;
+.note {
+    margin: 1em 0 1.4em 0;
+    background: rgb(240, 240, 128);
+    padding: 1em;
+    -webkit-box-shadow: 0 2px 12px rgba(0,0,0,.5);
+    -moz-box-shadow: 0 2px 12px rgba(0,0,0,.5);
+    box-shadow: 0 1px 2px #000;
+    -webkit-transform: rotate(-.5deg);
+    -moz-transform: rotate(-.5deg);
+    -o-transform: rotate(-.5deg);
 }
 
-.post-meta {
+.note-title {
+    color: #222;
+    font-weight: bold;
+    margin-bottom: 0.8em;
+}
+
+.note-header {
     color: #999;
     font-size: 90%;
     margin: 0;
 }
 
-.post-description {
+.note-body p {
     font-family: Georgia, "Cambria", serif;
     color: #444;
     line-height: 1.8em;
+    margin: 0.1em !important;
+}
+
+.note-footer {
+    margin-top: 1em;
+    font-size: 80%;
 }
 
 .empty-message {
