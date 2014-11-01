@@ -5,6 +5,7 @@ var Models = require('./models.js');
 var NoteView = Marionette.ItemView.extend({
     model: Models.Note,
     tagName: 'div',
+    className: "pure-u-1-1 pure-u-sm-1-1 pure-u-md-1-2 pure-u-lg-1-4",
     
     initialize: function() {
         this.listenTo(this.model, "change", this.render);

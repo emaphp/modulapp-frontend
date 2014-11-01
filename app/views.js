@@ -24,17 +24,17 @@ var AppHeaderView = Marionette.ItemView.extend({
         "click .pure-menu-heading": "mainPage"
     },
 
-    initNotes: function(evnt) {
+    initNotes: function() {
         this.$el.find('#option-notes').blur().parent().addClass("pure-menu-selected");
         this.$el.find('#option-contacts').parent().removeClass("pure-menu-selected");
     },
 
-    initContacts: function(evnt) {
+    initContacts: function() {
         this.$el.find('#option-contacts').blur().parent().addClass("pure-menu-selected");
         this.$el.find('#option-notes').parent().removeClass("pure-menu-selected");
     },
 
-    mainPage: function(evnt) {
+    mainPage: function() {
         this.$el.find('#option-notes').parent().removeClass("pure-menu-selected");
         this.$el.find('#option-contacts').parent().removeClass("pure-menu-selected");
 

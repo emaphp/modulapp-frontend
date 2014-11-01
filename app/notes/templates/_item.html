@@ -1,8 +1,8 @@
-<section class="note pure-u-1-1 pure-u-sm-1-1 pure-u-md-1-2 pure-u-lg-1-4">
+<section class="note">
     <header class="note-header">
         <span class="note-title"><%=title%></span>
         &nbsp;-&nbsp;
-        <em>Created&nbsp;<a href="#"><% print(require('moment')(createdAt).fromNow()) %></a></em>
+        <em class="note-date">Created&nbsp;<a href="#"><% print(require('moment')(createdAt).fromNow()) %></a></em>
     </header>
     <div class="note-body">
         <p><%=body%></p>
