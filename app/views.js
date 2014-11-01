@@ -4,8 +4,7 @@ var Marionette = require('marionette');
 var AppLayoutView = Marionette.LayoutView.extend({
     tagName: 'div',
     template: function() {
-        var tpl = require('./layout/layout.html');
-        return tpl({});
+        return require('./layout/layout.html');
     },
 
     regions: {
@@ -16,13 +15,13 @@ var AppLayoutView = Marionette.LayoutView.extend({
 
 var AppHeaderView = Marionette.ItemView.extend({
     template: function() {
-        var tpl = require('./layout/header.html');
-        return tpl({});
+        return require('./layout/header.html');
     },
     
     events: {
         "click #option-notes": "initNotes",
-        "click #option-contacts": "initContacts"
+        "click #option-contacts": "initContacts",
+        "click .pure-menu-heading": "mainPage"
     },
 
     initNotes: function(evnt) {
@@ -33,13 +32,20 @@ var AppHeaderView = Marionette.ItemView.extend({
     initContacts: function(evnt) {
         this.$el.find('#option-contacts').blur().parent().addClass("pure-menu-selected");
         this.$el.find('#option-notes').parent().removeClass("pure-menu-selected");
+    },
+
+    mainPage: function(evnt) {
+        this.$el.find('#option-notes').parent().removeClass("pure-menu-selected");
+        this.$el.find('#option-contacts').parent().removeClass("pure-menu-selected");
+
+        var view = new AppContentView();
+        require('./app.js').contentRegion.show(view);
     }
 });
 
 var AppContentView = Marionette.ItemView.extend({
     template: function() {
-        var tpl = require('./layout/content.html');
-        return tpl({});
+        return require('./layout/content.html');
     }
 });
 

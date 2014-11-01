@@ -12,9 +12,11 @@ App.addInitializer(function() {
 });
 
 //add regions
-App.addRegions({
-    appLayout: '#app-layout'
-});
+App.addInitializer(function() {
+    App.addRegions({
+        appLayout: '#app-layout'
+    });    
+})
 
 //start event
 App.on('start', function() {
