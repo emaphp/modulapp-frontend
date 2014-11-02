@@ -1,0 +1,14 @@
+<section class="contact">
+    <header class="contact-header pure-g">
+        <div class="pure-u-1-4 user-icon">
+            <i class="fa fa-user"></i>
+        </div>
+        <div class="pure-u-3-4">
+            <p><%=name%>&nbsp;<%=surname%></p>
+            <p class="twitter"><% if (twitter) print('@' + twitter) %></p>
+        </div>
+    </header>
+    <div class="contact-footer">
+        <a href="#contacts/edit/<%=id%>"><i class="fa fa-pencil"></i>&nbsp;Edit</a> / <a href="#" class="delete"><i class="fa fa-trash"></i>&nbsp;Delete</a>
+    </div>
+</section>

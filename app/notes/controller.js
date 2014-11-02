@@ -9,26 +9,17 @@ var NotesController = Marionette.Controller.extend({
     },
 
     list: function() {
-        var NoteListView = Views.NoteListView;
-        var view = new NoteListView({collection: this.storage.fetch()});
-        this.app.contentRegion.show(view);
-    },
-
-    detail: function(id) {
-        var NoteDetailView = Views.NoteDetailView;
-        var view = new NoteDetailView({model: this.storage.get(id)});
+        var view = new Views.NoteListView({collection: this.storage.fetch()});
         this.app.contentRegion.show(view);
     },
 
     create: function() {
-        var NoteCreateView = Views.NoteCreateView;
-        var view = new NoteCreateView();
+        var view = new Views.NoteCreateView();
         this.app.contentRegion.show(view);
     },
 
     edit: function(id) {
-        var NoteEditView = Views.NoteEditView;
-        var view = new NoteEditView({model: this.storage.get(id)});
+        var view = new Views.NoteEditView({model: this.storage.get(id)});
         this.app.contentRegion.show(view);
     }
 });

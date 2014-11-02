@@ -199,7 +199,49 @@ a.pure-menu-heading {
     margin-top: 2.5em;
 }
 
+/**
+ * CONTACTS
+ */
+.contact {
+    font-size: 90%;
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border: 0px solid #000000;
+    background: rgba(212,228,239,1);
+    background: -moz-linear-gradient(left, rgba(212,228,239,1) 0%, rgba(205,231,250,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(212,228,239,1)), color-stop(100%, rgba(205,231,250,1)));
+    background: -webkit-linear-gradient(left, rgba(212,228,239,1) 0%, rgba(205,231,250,1) 100%);
+    background: -o-linear-gradient(left, rgba(212,228,239,1) 0%, rgba(205,231,250,1) 100%);
+    background: -ms-linear-gradient(left, rgba(212,228,239,1) 0%, rgba(205,231,250,1) 100%);
+    background: linear-gradient(to right, rgba(212,228,239,1) 0%, rgba(205,231,250,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4e4ef', endColorstr='#cde7fa', GradientType=1 );
+    padding: 0.4em 0.6em;
+}
 
+.contact p {
+    margin: 0.2em 0 !important;
+}
+
+.contact-body {
+    font-size: 80%;
+}
+
+.user-icon {
+    font-size: 2.5em;
+    text-align: center;
+}
+
+.twitter {
+    font-size: 80%;
+    color: #444;
+}
+
+.contact-footer {
+    margin-top: 1em;
+    font-size: 80%;
+    text-align: center;;
+}
 
 a.pure-button:hover,a.pure-button:focus {
     text-decoration: none;

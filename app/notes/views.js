@@ -55,18 +55,16 @@ var NoteCreateView = Marionette.ItemView.extend({
 
     save: function(evnt) {
         evnt.preventDefault();
-        var Note = Models.Note;
-        var moment = require('moment');
 
-        var note = new Note({
+        var note = new Models.Note({
             title: this.$el.find('#title').val(),
             body: this.$el.find('#body').val(),
-            createdAt: moment().format()
+            createdAt: require('moment')().format()
         });
+
         note.save(note.attributes, {
             success: function() {
-                var storage = require('./storage.js');
-                storage.add(note);
+                require('./storage.js').add(note);
                 Backbone.history.navigate("notes/list", true);
             }
         });
@@ -88,7 +86,8 @@ var NoteEditView = Marionette.ItemView.extend({
     save: function(evnt) {
         evnt.preventDefault();
         var note = this.model;
-        note.set({title: this.$el.find('#title').val(),
+        note.set({
+            title: this.$el.find('#title').val(),
             body: this.$el.find('#body').val()
         });
         note.save();

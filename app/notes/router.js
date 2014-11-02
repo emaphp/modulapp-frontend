@@ -8,7 +8,6 @@ var NotesRouter = Marionette.AppRouter.extend({
         //append routes
         this.processAppRoutes(this.controller, {
             "notes/list": "list",
-            "notes/detail/:id": "detail",
             "notes/create": "create",
             "notes/edit/:id": "edit"
         });
