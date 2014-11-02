@@ -9,6 +9,9 @@ module.exports = {
         path: __dirname,
         filename: "bundle.js"
     },
+    node: {
+        fs: "empty"
+    },
     module: {
         loaders: [
             { test: /\.css$/, loader: "style!css" },

@@ -12,7 +12,7 @@ var ContactView = Marionette.ItemView.extend({
     },
 
     template: function(model) {
-        var tpl = require('./templates/_item.html');
+        var tpl = require('./templates/_item.hbs');
         return tpl(model);
     },
 

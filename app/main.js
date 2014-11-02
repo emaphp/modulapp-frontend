@@ -10,10 +10,12 @@ require('../css/styles.css');
 //font awesome
 require("font-awesome-webpack");
 
+//handlebars helpers
+require('./helpers.js');
+
 //initialize
 var $ = require('jquery');
 
 $(document).on('ready', function() {
-    var App = require('./app.js');
-    App.start();
+    require('./app.js').start();
 });
