@@ -1,6 +1,7 @@
 var Backbone = require('backbone');
 var Marionette = require('marionette');
 var Models = require('./models.js');
+var debounce = require('debounce');
 
 var ContactView = Marionette.ItemView.extend({
     model: Models.Contact,
@@ -37,6 +38,46 @@ var ContactListView = Marionette.CompositeView.extend({
     emptyView: ContactEmptyView,
     childView: ContactView,
     childViewContainer: '#contacts-list',
+
+    initialize: function(options) {
+        this.filtered = options.collection;
+        this.applyFilter = debounce(this.filterList, 225);
+    },
+
+    events: {
+        "keyup #filter": "applyFilter"
+    },
+
+    filterList: function(evnt) {
+        var filter = this.$el.find('#filter').val();
+
+        if (filter != "") {
+            var regex = new RegExp(filter.replace(/([.*+?^${}()|\[\]\/\\])/g, "\\$1"), 'i');
+            var filtered = this.filtered.filter(function(contact) {
+                if (contact.get('name').match(regex)) {
+                    return true;
+                }
+
+                var surname = contact.get('surname');
+                if (surname && surname.match(regex)) {
+                    return true;
+                }
+
+                var twitter = contact.get('twitter');
+                if (twitter && twitter.match(regex)) {
+                    return true;
+                }
+
+                return false;
+            });
+            this.collection = new Models.ContactsCollection(filtered);
+        }
+        else {
+            this.collection = this.filtered.clone();
+        }
+        
+        this._renderChildren();
+    },
 
     template: function() {
         return require('./templates/list.html');

@@ -115,6 +115,10 @@ a.pure-menu-heading {
     margin: 1.3em 0.3em 0 0;
 }
 
+#filter {
+    width: 97%;
+}
+
 /**
  * MAIN PAGE
  */
@@ -237,9 +241,18 @@ a.pure-menu-heading {
     font-size: 80%;
 }
 
+.contact-name {
+    min-height: 22px;
+}
+
 .contact-twitter {
     font-size: 80%;
     color: #444;
+    min-height: 17px;
+}
+
+.contact-meta {
+    min-height: 19px;   
 }
 
 .contact-meta i {
