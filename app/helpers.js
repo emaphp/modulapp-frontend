@@ -21,7 +21,23 @@ Handlebars.registerHelper('contact-twitter', function() {
         return '@' + this.twitter;
     }
 
-    return '';
+    return '-';
+});
+
+Handlebars.registerHelper('contact-phone', function() {
+    if (this.phone) {
+        return this.phone;
+    }
+
+    return new Handlebars.SafeString('<em>???</em>');
+});
+
+Handlebars.registerHelper('contact-email', function() {
+    if (this.email) {
+        return this.email;
+    }
+
+   return new Handlebars.SafeString('<em>???</em>'); 
 });
 
 Handlebars.registerHelper('contact-meta', function() {

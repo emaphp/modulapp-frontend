@@ -8,6 +8,7 @@ var ContactsRouter = Marionette.AppRouter.extend({
         //append routes
         this.processAppRoutes(this.controller, {
             "contacts/list": "list",
+            "contacts/detail/:id": "detail",
             "contacts/create": "create",
             "contacts/edit/:id": "edit"
         });

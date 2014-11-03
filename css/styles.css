@@ -206,6 +206,7 @@ a.pure-menu-heading {
 /**
  * CONTACTS
  */
+
 .contact {
     width: 96%;
     border-radius: 10px 10px 10px 10px;
@@ -241,6 +242,14 @@ a.pure-menu-heading {
     font-size: 80%;
 }
 
+.contact-data p {
+    margin: 0.3em !important;
+}
+
+.contact-info > p {
+    font-size: 80%;
+}
+
 .contact-name {
     min-height: 22px;
 }
@@ -264,6 +273,10 @@ a.pure-menu-heading {
     font-size: 80%;
     text-align: center;;
 }
+
+/**
+ * BUTTONS
+ */
 
 a.pure-button:hover,a.pure-button:focus {
     text-decoration: none;

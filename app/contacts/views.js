@@ -84,6 +84,15 @@ var ContactListView = Marionette.CompositeView.extend({
     }
 });
 
+var ContactDetailView = Marionette.ItemView.extend({
+    tagName: 'div',
+    
+    template: function(model) {
+        var tpl = require('./templates/detail.hbs');
+        return tpl(model);
+    }
+});
+
 var ContactCreateView = Marionette.ItemView.extend({
     tagName: 'div',
     template: function() {
@@ -118,7 +127,7 @@ var ContactEditView = Marionette.ItemView.extend({
     tagName: 'div',
 
     template: function(model) {
-        var tpl = require('./templates/edit.html');
+        var tpl = require('./templates/edit.hbs');
         return tpl(model);
     },
 
@@ -126,12 +135,13 @@ var ContactEditView = Marionette.ItemView.extend({
         "click .save": "save"
     },
 
-    save: function() {
+    save: function(evnt) {
         evnt.preventDefault();
 
         var contact = this.model;
         contact.set({
-            surnname: this.$el.find('#surname').val(),
+            name: this.$el.find('#name').val(),
+            surname: this.$el.find('#surname').val(),
             email: this.$el.find('#email').val(),
             phone: this.$el.find('#phone').val(),
             twitter: this.$el.find('#twitter').val()
@@ -144,6 +154,7 @@ var ContactEditView = Marionette.ItemView.extend({
 module.exports = {
     ContactView: ContactView,
     ContactListView: ContactListView,
+    ContactDetailView: ContactDetailView,
     ContactCreateView: ContactCreateView,
     ContactEditView: ContactEditView
 };
