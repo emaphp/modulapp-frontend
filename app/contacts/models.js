@@ -8,7 +8,17 @@ var Contact = Backbone.Model.extend({
             required: true
         },
         email: {
+            required: false,
             pattern: 'email'
+        },
+        phone: {
+            required: false,
+            pattern: 'digits'
+        },
+        twitter: {
+            required: false,
+            pattern: /^\w+$/,
+            msg: "Invalid twitter account"
         }
     }
 });

@@ -1,9 +1,10 @@
 var Marionette = require('marionette');
 var Views = require('./views.js');
+var Models = require('./models.js');
 
 var ContactsController = Marionette.Controller.extend({
     initialize: function(app) {
-        console.log("Controller in module 'Contacts' is starting...");
+        console.log("'Contacts' controller is being initialized...");
         this.app = app;
         this.storage = require('./storage.js');
     },
@@ -19,7 +20,7 @@ var ContactsController = Marionette.Controller.extend({
     },
 
     create: function() {
-        var view = new Views.ContactCreateView();
+        var view = new Views.ContactCreateView({model: new Models.Contact()});
         this.app.contentRegion.show(view);
     },
 

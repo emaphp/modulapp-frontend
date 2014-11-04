@@ -4,7 +4,7 @@ var Models = require('./models.js');
 
 var NotesController = Marionette.Controller.extend({
     initialize: function(app) {
-        console.log("Controller in module 'Notes' is starting...");
+        console.log("'Notes' controller is being initialized...");
         this.app = app;
         this.storage = require('./storage.js');
     },

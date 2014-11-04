@@ -2,6 +2,7 @@ var Backbone = require('backbone');
 var Marionette = require('marionette');
 var Models = require('./models.js');
 var _ = require('underscore');
+var UI = require('../ui.js');
 
 var ContactView = Marionette.ItemView.extend({
     model: Models.Contact,
@@ -22,7 +23,16 @@ var ContactView = Marionette.ItemView.extend({
     },
 
     delete: function() {
-        this.model.destroy();
+        UI.showLoader("Deleting contact...");
+        this.model.destroy({
+            success: function() {
+                UI.showSuccess('Contact deleted succesfully');
+            },
+            error: function() {
+                UI.showError("Error: Failed to delete contact");
+            },
+            wait: true,
+        });
     }
 });
 
@@ -39,8 +49,8 @@ var ContactListView = Marionette.CompositeView.extend({
     childView: ContactView,
     childViewContainer: '#contacts-list',
 
-    initialize: function(options) {
-        this.filtered = options.collection;
+    initialize: function initialize(options) {
+        this.contacts = options.collection;
         this.applyFilter = _.debounce(this.filterList, 225);
     },
 
@@ -53,7 +63,7 @@ var ContactListView = Marionette.CompositeView.extend({
 
         if (filter != "") {
             var regex = new RegExp(filter.replace(/([.*+?^${}()|\[\]\/\\])/g, "\\$1"), 'i');
-            var filtered = this.filtered.filter(function(contact) {
+            var filtered = this.contacts.filter(function(contact) {
                 if (contact.get('name').match(regex)) {
                     return true;
                 }
@@ -73,7 +83,7 @@ var ContactListView = Marionette.CompositeView.extend({
             this.collection = new Models.ContactsCollection(filtered);
         }
         else {
-            this.collection = this.filtered.clone();
+            this.collection = this.contacts.clone();
         }
         
         this._renderChildren();
@@ -95,6 +105,14 @@ var ContactDetailView = Marionette.ItemView.extend({
 
 var ContactCreateView = Marionette.ItemView.extend({
     tagName: 'div',
+    
+    initialize: function() {
+        var Validation = require('backbone-validation');
+        Validation.bind(this, {
+            selector: 'id'
+        });
+    },
+
     template: function() {
         return require('./templates/create.html');
     },
@@ -106,7 +124,7 @@ var ContactCreateView = Marionette.ItemView.extend({
     save: function(evnt) {
         evnt.preventDefault();
 
-        var contact = new Models.Contact({
+        this.model.set({
             name: this.$el.find('#name').val(),
             surname: this.$el.find('#surname').val(),
             email: this.$el.find('#email').val(),
@@ -114,17 +132,43 @@ var ContactCreateView = Marionette.ItemView.extend({
             twitter: this.$el.find('#twitter').val()
         });
 
-        contact.save(contact.attributes, {
-            success: function() {
-                require('./storage.js').add(contact);
+        var errors = this.model.validate();
+        if (errors) {
+            UI.showFormErrors(errors);
+            return;
+        }
+
+        UI.showLoader("Saving contact...");
+
+        this.model.save(this.model.attributes, {
+            wait: true,
+            success: function(model) {
+                require('./storage.js').add(model);
                 Backbone.history.navigate("contacts/list", true);
+                UI.showSuccess('Contact saved succesfully');
+            },
+            error: function() {
+                Backbone.history.navigate("contacts/list", true);
+                UI.showError("Error: Couldn't save note");
             }
         });
+    },
+
+    remove: function() {
+        var Validation = require('backbone-validation');
+        Validation.unbind(this);
     }
 });
 
 var ContactEditView = Marionette.ItemView.extend({
     tagName: 'div',
+
+    initialize: function() {
+        var Validation = require('backbone-validation');
+        Validation.bind(this, {
+            selector: 'id'
+        });
+    },
 
     template: function(model) {
         var tpl = require('./templates/edit.hbs');
@@ -138,16 +182,41 @@ var ContactEditView = Marionette.ItemView.extend({
     save: function(evnt) {
         evnt.preventDefault();
 
-        var contact = this.model;
-        contact.set({
+        var old = this.model.clone();
+        this.model.set({
             name: this.$el.find('#name').val(),
             surname: this.$el.find('#surname').val(),
             email: this.$el.find('#email').val(),
             phone: this.$el.find('#phone').val(),
             twitter: this.$el.find('#twitter').val()
         });
-        contact.save();
-        Backbone.history.navigate("contacts/list", true);
+
+        var errors = this.model.validate();
+        if (errors) {
+            this.model.set(old.attributes);
+            UI.showFormErrors(errors);
+            return;
+        }
+
+        UI.showLoader("Saving contact...");
+
+        this.model.save(this.model.attributes, {
+            wait: true,
+            success: function(model) {
+                require('./storage.js').add(model);
+                Backbone.history.navigate("contacts/list", true);
+                UI.showSuccess('Contact updated succesfully');
+            },
+            error: function() {
+                Backbone.history.navigate("contacts/list", true);
+                UI.showError("Error: Couldn't save contact");
+            }
+        });
+    },
+
+    remove: function() {
+        var Validation = require('backbone-validation');
+        Validation.unbind(this);
     }
 });
 

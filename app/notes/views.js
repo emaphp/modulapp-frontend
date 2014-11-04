@@ -22,7 +22,7 @@ var NoteView = Marionette.ItemView.extend({
     },
 
     delete: function() {
-        UI.showLoader("Deleting model...");
+        UI.showLoader("Deleting note...");
         this.model.destroy({
             success: function() {
                 UI.showSuccess('Note deleted succesfully');
@@ -85,7 +85,7 @@ var NoteCreateView = Marionette.ItemView.extend({
             return;
         }
 
-        UI.showLoader("Saving model...");
+        UI.showLoader("Saving note...");
         
         this.model.save(this.model.attributes, {
             wait: true,
@@ -142,7 +142,7 @@ var NoteEditView = Marionette.ItemView.extend({
             return;
         }
         
-        UI.showLoader("Saving model...");
+        UI.showLoader("Saving note...");
 
         this.model.save(this.model.attributes, {
             wait: true,
