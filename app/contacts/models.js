@@ -2,7 +2,15 @@ var Backbone = require('backbone');
 var Config = require('../config.js');
 
 var Contact = Backbone.Model.extend({
-    urlRoot: Config.Contacts.endPoint
+    urlRoot: Config.Contacts.endPoint,
+    validation: {
+        name: {
+            required: true
+        },
+        email: {
+            pattern: 'email'
+        }
+    }
 });
 
 var ContactsCollection = Backbone.Collection.extend({

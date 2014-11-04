@@ -1,7 +1,7 @@
 var Backbone = require('backbone');
 var Marionette = require('marionette');
 var Models = require('./models.js');
-var debounce = require('debounce');
+var _ = require('underscore');
 
 var ContactView = Marionette.ItemView.extend({
     model: Models.Contact,
@@ -41,7 +41,7 @@ var ContactListView = Marionette.CompositeView.extend({
 
     initialize: function(options) {
         this.filtered = options.collection;
-        this.applyFilter = debounce(this.filterList, 225);
+        this.applyFilter = _.debounce(this.filterList, 225);
     },
 
     events: {
