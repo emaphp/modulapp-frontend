@@ -57,3 +57,17 @@ Handlebars.registerHelper('contact-meta', function() {
 
     return new Handlebars.SafeString(output);
 });
+
+//validation callbacks
+var _ = require('underscore');
+var Validation = require('backbone-validation');
+_.extend(Validation.callbacks, {
+    valid: function(view, attr, selector) {
+        var select = "[" + selector + "='" + attr + "']";
+        view.$el.find(select).removeClass('invalid');
+    },
+    invalid: function(view, attr, error, selector) {
+        var select = "[" + selector + "='" + attr + "']";
+        view.$el.find(select).addClass('invalid');
+    }
+});

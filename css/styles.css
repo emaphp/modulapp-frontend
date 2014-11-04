@@ -299,6 +299,11 @@ a.pure-button:hover,a.pure-button:focus {
     font-size: 0.8em;
 }
 
+.invalid {
+    border: 1px solid rgb(227, 42, 42) !important;
+    box-shadow: 0px 1px 3px rgb(230, 161, 161) !important;
+}
+
 @media (max-width: 320px) {
     .home-menu {
         font-size: 0.75em;

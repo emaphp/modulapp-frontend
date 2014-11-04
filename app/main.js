@@ -13,6 +13,10 @@ require("font-awesome-webpack");
 //handlebars helpers
 require('./helpers.js');
 
+//backbone.notifier styles
+require('backbone.notifier/css/notifier-base.css');
+require('backbone.notifier/css/notifier-theme-plastic.css');
+
 //initialize
 var $ = require('jquery');
 
