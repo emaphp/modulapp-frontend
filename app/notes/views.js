@@ -88,9 +88,11 @@ var NoteCreateView = Marionette.ItemView.extend({
         UI.showLoader("Saving model...");
         
         this.model.save(this.model.attributes, {
+            wait: true,
             success: function(model) {
                 require('./storage.js').add(model);
                 Backbone.history.navigate("notes/list", true);
+                UI.showSuccess('Note saved succesfully');
             },
             error: function() {
                 Backbone.history.navigate("notes/list", true);
@@ -98,6 +100,7 @@ var NoteCreateView = Marionette.ItemView.extend({
             }
         });
     },
+    
     remove: function() {
         var Validation = require('backbone-validation');
         Validation.unbind(this);
@@ -106,6 +109,13 @@ var NoteCreateView = Marionette.ItemView.extend({
 
 var NoteEditView = Marionette.ItemView.extend({
     tagName: 'div',
+
+    initialize: function() {
+        var Validation = require('backbone-validation');
+        Validation.bind(this, {
+            selector: 'id'
+        });
+    },
 
     template: function(model) {
         var tpl = require('./templates/edit.html');
@@ -118,13 +128,39 @@ var NoteEditView = Marionette.ItemView.extend({
 
     save: function(evnt) {
         evnt.preventDefault();
-        var note = this.model;
-        note.set({
+        
+        var old = this.model.clone();
+        this.model.set({
             title: this.$el.find('#title').val(),
             body: this.$el.find('#body').val()
         });
-        note.save();
-        Backbone.history.navigate("notes/list", true);
+
+        var errors = this.model.validate();
+        if (errors) {
+            this.model.set(old.attributes);
+            UI.showFormErrors(errors);
+            return;
+        }
+        
+        UI.showLoader("Saving model...");
+
+        this.model.save(this.model.attributes, {
+            wait: true,
+            success: function(model) {
+                require('./storage.js').add(model);
+                Backbone.history.navigate("notes/list", true);
+                UI.showSuccess('Note updated succesfully');
+            },
+            error: function() {
+                Backbone.history.navigate("notes/list", true);
+                UI.showError("Error: Couldn't save note");
+            }
+        });
+    },
+
+    remove: function() {
+        var Validation = require('backbone-validation');
+        Validation.unbind(this);
     }
 });
 

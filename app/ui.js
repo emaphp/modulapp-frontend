@@ -5,7 +5,7 @@ var UI = Marionette.Controller.extend({
     showFormErrors: function(errors) {
         this.clean();
 
-        var msg = "<strong>Please correct these errors:</strong>";
+        var msg = "<strong>Please correct the following errors:</strong>";
 
         for (error in errors) {
             msg += "<br/>" + errors[error];
