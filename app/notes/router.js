@@ -1,6 +1,6 @@
-var Marionette = require('marionette');
+var Router = require('../router.js');
 
-var NotesRouter = Marionette.AppRouter.extend({
+var NotesRouter = Router.extend({
     initialize: function(controller) {
         //set controller
         this.controller = controller;

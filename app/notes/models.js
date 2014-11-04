@@ -3,7 +3,15 @@ var Config = require('../config.js');
 var moment = require('moment');
 
 var Note = Backbone.Model.extend({
-    urlRoot: Config.Notes.endPoint
+    urlRoot: Config.Notes.endPoint,
+    validation: {
+        title: {
+            required: true
+        },
+        body: {
+            required: true
+        }
+    }
 });
 
 var NotesCollection = Backbone.Collection.extend({

@@ -1,5 +1,6 @@
 var Marionette = require('marionette');
 var Views = require('./views.js');
+var Models = require('./models.js');
 
 var NotesController = Marionette.Controller.extend({
     initialize: function(app) {
@@ -14,7 +15,7 @@ var NotesController = Marionette.Controller.extend({
     },
 
     create: function() {
-        var view = new Views.NoteCreateView();
+        var view = new Views.NoteCreateView({model: new Models.Note()});
         this.app.contentRegion.show(view);
     },
 
