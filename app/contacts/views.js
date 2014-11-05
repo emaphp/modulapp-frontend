@@ -96,6 +96,7 @@ var ContactListView = Marionette.CompositeView.extend({
 
 var ContactDetailView = Marionette.ItemView.extend({
     tagName: 'div',
+    className: "pure-u-1-1 pure-u-sm-1-1 pure-u-md-1-2 pure-u-lg-1-4",
     
     template: function(model) {
         var tpl = require('./templates/detail.hbs');
@@ -163,10 +164,12 @@ var ContactCreateView = Marionette.ItemView.extend({
 var ContactEditView = Marionette.ItemView.extend({
     tagName: 'div',
 
-    initialize: function() {
+    initialize: function(options) {
+        this.contact = options.model.clone();
         var Validation = require('backbone-validation');
         Validation.bind(this, {
-            selector: 'id'
+            selector: 'id',
+            model: this.contact
         });
     },
 
@@ -182,8 +185,7 @@ var ContactEditView = Marionette.ItemView.extend({
     save: function(evnt) {
         evnt.preventDefault();
 
-        var old = this.model.clone();
-        this.model.set({
+        this.contact.set({
             name: this.$el.find('#name').val(),
             surname: this.$el.find('#surname').val(),
             email: this.$el.find('#email').val(),
@@ -191,16 +193,15 @@ var ContactEditView = Marionette.ItemView.extend({
             twitter: this.$el.find('#twitter').val()
         });
 
-        var errors = this.model.validate();
+        var errors = this.contact.validate();
         if (errors) {
-            this.model.set(old.attributes);
             UI.showFormErrors(errors);
             return;
         }
 
         UI.showLoader("Saving contact...");
 
-        this.model.save(this.model.attributes, {
+        this.model.save(this.contact.attributes, {
             wait: true,
             success: function(model) {
                 require('./storage.js').add(model);

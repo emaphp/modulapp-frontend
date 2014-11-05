@@ -248,6 +248,8 @@ a.pure-menu-heading {
 
 .contact-info > p {
     font-size: 80%;
+    margin-top: 0.4em !important;
+    margin-bottom: 0.7em !important;
 }
 
 .contact-name {

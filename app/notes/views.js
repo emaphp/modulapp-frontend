@@ -110,10 +110,12 @@ var NoteCreateView = Marionette.ItemView.extend({
 var NoteEditView = Marionette.ItemView.extend({
     tagName: 'div',
 
-    initialize: function() {
+    initialize: function(options) {
+        this.note = options.model.clone();
         var Validation = require('backbone-validation');
         Validation.bind(this, {
-            selector: 'id'
+            selector: 'id',
+            model: this.note
         });
     },
 
@@ -129,22 +131,20 @@ var NoteEditView = Marionette.ItemView.extend({
     save: function(evnt) {
         evnt.preventDefault();
         
-        var old = this.model.clone();
-        this.model.set({
+        this.note.set({
             title: this.$el.find('#title').val(),
             body: this.$el.find('#body').val()
         });
 
-        var errors = this.model.validate();
+        var errors = this.note.validate();
         if (errors) {
-            this.model.set(old.attributes);
             UI.showFormErrors(errors);
             return;
         }
         
         UI.showLoader("Saving note...");
 
-        this.model.save(this.model.attributes, {
+        this.model.save(this.note.attributes, {
             wait: true,
             success: function(model) {
                 require('./storage.js').add(model);

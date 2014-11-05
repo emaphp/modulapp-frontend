@@ -1,9 +1,11 @@
 var Marionette = require('marionette');
+var UI = require('./ui.js');
 
 var Storage = Marionette.Controller.extend({
     fetch: function() {
         if (typeof(this.data) == 'undefined') {
             this.data = new this.collection();
+            UI.showLoader();
             this.data.fetch({
                 success: this.success,
                 error: this.error

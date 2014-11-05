@@ -1,4 +1,5 @@
 var Storage = require('../storage.js');
+var UI = require('../ui.js');
 var Models = require('./models.js');
 
 var CollectionsStorage = Storage.extend({
@@ -10,6 +11,7 @@ var CollectionsStorage = Storage.extend({
     
     error: function() {
         console.log("Failed to fetch ContactsCollection");
+        UI.showError("Error: Couldn't fetch contacts");
     }
 });
 

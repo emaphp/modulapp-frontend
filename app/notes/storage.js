@@ -1,4 +1,5 @@
 var Storage = require('../storage.js');
+var UI = require('../ui.js');
 var Models = require('./models.js');
 
 var NotesStorage = Storage.extend({
@@ -10,6 +11,7 @@ var NotesStorage = Storage.extend({
     
     error: function() {
         console.log("Failed to fetch NotesCollection");
+        UI.showError("Error: Couldn't fetch notes");
     }
 });
 
