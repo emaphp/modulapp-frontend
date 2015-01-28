@@ -1,10 +1,16 @@
-var Marionette = require('marionette');
-var UI = require('./ui.js');
+/**
+ * storage.js
+ * ----------
+ * Storage base class
+ */
 
-var Storage = Marionette.Controller.extend({
+var Marionette = require('marionette');
+var UI = require('./ui');
+
+var Storage = Marionette.Object.extend({
     fetch: function() {
         if (typeof(this.data) == 'undefined') {
-            this.data = new this.collection();
+            this.data = new this.collection;
             UI.showLoader();
             this.data.fetch({
                 success: this.success,

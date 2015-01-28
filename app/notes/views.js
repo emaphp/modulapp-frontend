@@ -1,7 +1,13 @@
+/**
+ * view.js
+ * -------
+ * Views for Notes module
+ */
+
 var Backbone = require('backbone');
 var Marionette = require('marionette');
-var Models = require('./models.js');
-var UI = require('../ui.js');
+var Models = require('./models');
+var UI = require('../ui');
 
 var NoteView = Marionette.ItemView.extend({
     model: Models.Note,
@@ -13,8 +19,7 @@ var NoteView = Marionette.ItemView.extend({
     },
 
     template: function(model) {
-        var tpl = require('./templates/_item.html');
-        return tpl(model);
+        return require('./templates/_item.html')(model);
     },
 
     events: {
@@ -55,6 +60,7 @@ var NoteListView = Marionette.CompositeView.extend({
 
 var NoteCreateView = Marionette.ItemView.extend({
     tagName: 'div',
+    
     initialize: function() {
         var Validation = require('backbone-validation');
         Validation.bind(this, {

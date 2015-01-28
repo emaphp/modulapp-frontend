@@ -1,6 +1,12 @@
-var Storage = require('../storage.js');
-var UI = require('../ui.js');
-var Models = require('./models.js');
+/**
+ * storage.js
+ * ----------
+ * Storage for Contacts module
+ */
+
+var Storage = require('../storage');
+var UI = require('../ui');
+var Models = require('./models');
 
 var CollectionsStorage = Storage.extend({
     collection: Models.ContactsCollection,

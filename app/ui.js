@@ -1,7 +1,13 @@
+/**
+ * ui.js
+ * -----
+ * Provides visual notifications through backbone.notifier
+ */
+
 var Marionette = require('marionette');
 var Notifier = require('backbone.notifier');
 
-var UI = Marionette.Controller.extend({
+var UI = Marionette.Object.extend({
     showFormErrors: function(errors) {
         this.clean();
 
@@ -19,6 +25,7 @@ var UI = Marionette.Controller.extend({
             ms: 5000
         });
     },
+
     showError: function(err) {
         this.clean();
         var notifier = new Notifier();
@@ -29,6 +36,7 @@ var UI = Marionette.Controller.extend({
             ms: 5000
         });
     },
+
     showInfo: function(info) {
         this.clean();
         var notifier = new Notifier();
@@ -39,6 +47,7 @@ var UI = Marionette.Controller.extend({
             ms: 3000
         });
     },
+
     showSuccess: function(success) {
         this.clean();
         var notifier = new Notifier();
@@ -49,6 +58,7 @@ var UI = Marionette.Controller.extend({
             ms: 3000
         });
     },
+
     showLoader: function(message) {
         this.clean();
         var msg = message || "Loading...";
@@ -64,6 +74,7 @@ var UI = Marionette.Controller.extend({
             loader: true
         });
     },
+    
     clean: function() {
         if (this.notify) {
             this.notify.destroy();

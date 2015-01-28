@@ -1,4 +1,10 @@
-var Router = require('../router.js');
+/**
+ * router.js
+ * ---------
+ * Router class for Contacts module
+ */
+ 
+var Router = require('../router');
 
 var ContactsRouter = Router.extend({
     initialize: function(controller) {

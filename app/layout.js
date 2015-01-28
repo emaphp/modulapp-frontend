@@ -1,15 +1,27 @@
+/**
+ * layout.js
+ * ---------
+ * Application layout views
+ */
+
 var Backbone = require('backbone');
 var Marionette = require('marionette');
 
 var AppLayoutView = Marionette.LayoutView.extend({
     tagName: 'div',
+    
     template: function() {
         return require('./layout/layout.html');
     },
-
+    
     regions: {
         headerRegion: '#header-region',
         contentRegion: '#content-region'
+    },
+    
+    onBeforeShow: function() {
+        this.getRegion("headerRegion").show(new AppHeaderView());
+        this.getRegion("contentRegion").show(new AppContentView());
     }
 });
 
@@ -19,17 +31,17 @@ var AppHeaderView = Marionette.ItemView.extend({
     },
     
     events: {
-        "click #option-notes": "initNotes",
-        "click #option-contacts": "initContacts",
+        "click #option-notes": "selectNotes",
+        "click #option-contacts": "selectContacts",
         "click .pure-menu-heading": "mainPage"
     },
 
-    initNotes: function() {
+    selectNotes: function() {
         this.$el.find('#option-notes').blur().parent().addClass("pure-menu-selected");
         this.$el.find('#option-contacts').parent().removeClass("pure-menu-selected");
     },
 
-    initContacts: function() {
+    selectContacts: function() {
         this.$el.find('#option-contacts').blur().parent().addClass("pure-menu-selected");
         this.$el.find('#option-notes').parent().removeClass("pure-menu-selected");
     },
@@ -39,7 +51,7 @@ var AppHeaderView = Marionette.ItemView.extend({
         this.$el.find('#option-contacts').parent().removeClass("pure-menu-selected");
 
         var view = new AppContentView();
-        require('./app.js').contentRegion.show(view);
+        module.exports.getRegion("contentRegion").show(view);
     }
 });
 
@@ -49,8 +61,4 @@ var AppContentView = Marionette.ItemView.extend({
     }
 });
 
-module.exports = {
-    layout: new AppLayoutView(),
-    header: new AppHeaderView(),
-    content: new AppContentView()
-};
+module.exports = new AppLayoutView();

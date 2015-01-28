@@ -1,42 +1,38 @@
+/**
+ * app.js
+ * ------
+ * Application startup
+ */
+
 var Backbone = require('backbone');
 var Marionette = require('marionette');
 
 //create app
 var App = new Marionette.Application();
 
-//initilize modules
-App.addInitializer(function() {
-    console.log('Initializing modules...');
-    App.module('Notes', require('./notes/notes.js'));
-    App.module('Contacts', require('./contacts/contacts.js'));
-});
+App.addRegions({
+    appLayout: '#app-layout'
+});    
 
-//add regions
-App.addInitializer(function() {
-    App.addRegions({
-        appLayout: '#app-layout'
-    });    
-})
+//load modules
+require('./notes/init')(App);
+require('./contacts/init')(App);
 
 //start event
 App.on('start', function() {
-    console.log('Application is starting...');
+    console.log("Application is starting...");
+
+    /*
+     * INITIALIZE LAYOUT
+     */
     
-    //get layout views
-    var views = require('./views.js');
+    var Layout = require('./layout');
+    App.getRegion("appLayout").show(Layout); 
 
-    //render layout
-    var layout = views.layout;
-    App.appLayout.show(layout);
-
-    //render layout regions
-    layout.headerRegion.show(views.header);
-    layout.contentRegion.show(views.content);
-
-    //update app regions
-    App.headerRegion = layout.headerRegion;
-    App.contentRegion = layout.contentRegion;
-
+    /**
+     * START HISTORY
+     */
+    
     Backbone.history.start();
 });
 

@@ -1,5 +1,11 @@
+/**
+ * models.js
+ * ---------
+ * Models for Notes module
+ */
+
 var Backbone = require('backbone');
-var Config = require('../config.js');
+var Config = require('../config');
 var moment = require('moment');
 
 var Note = Backbone.Model.extend({

@@ -1,3 +1,9 @@
+/**
+ * router.js
+ * ---------
+ * Router class for Notes module
+ */
+ 
 var Router = require('../router.js');
 
 var NotesRouter = Router.extend({

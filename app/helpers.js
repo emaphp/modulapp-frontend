@@ -1,3 +1,8 @@
+/**
+ * helpers.js
+ * ----------
+ * Additional helpers for Handlebars and Backbone.Validation
+ */
 var Handlebars = require('handlebars-template-loader').Handlebars;
 
 Handlebars.registerHelper('contact-name', function() {

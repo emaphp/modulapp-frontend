@@ -27,14 +27,5 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 
-# Font-Awesome
-*.svg
-*.eot
-*.ttf
-*.woff
-
-# Backbone.Notifier
-*.gif
-
-# Webpack
-bundle.js
+# dist directory
+dist/

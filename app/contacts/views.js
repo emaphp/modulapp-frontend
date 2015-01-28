@@ -1,8 +1,14 @@
+/**
+ * views.js
+ * --------
+ * Views for Contacts module
+ */
+
 var Backbone = require('backbone');
 var Marionette = require('marionette');
-var Models = require('./models.js');
+var Models = require('./models');
 var _ = require('underscore');
-var UI = require('../ui.js');
+var UI = require('../ui');
 
 var ContactView = Marionette.ItemView.extend({
     model: Models.Contact,
@@ -14,8 +20,7 @@ var ContactView = Marionette.ItemView.extend({
     },
 
     template: function(model) {
-        var tpl = require('./templates/_item.hbs');
-        return tpl(model);
+        return require('./templates/_item.hbs')(model);
     },
 
     events: {
@@ -99,8 +104,7 @@ var ContactDetailView = Marionette.ItemView.extend({
     className: "pure-u-1-1 pure-u-sm-1-1 pure-u-md-1-2 pure-u-lg-1-4",
     
     template: function(model) {
-        var tpl = require('./templates/detail.hbs');
-        return tpl(model);
+        return require('./templates/detail.hbs')(model);
     }
 });
 
@@ -144,13 +148,13 @@ var ContactCreateView = Marionette.ItemView.extend({
         this.model.save(this.model.attributes, {
             wait: true,
             success: function(model) {
-                require('./storage.js').add(model);
+                require('./storage').add(model);
                 Backbone.history.navigate("contacts/list", true);
                 UI.showSuccess('Contact saved succesfully');
             },
             error: function() {
                 Backbone.history.navigate("contacts/list", true);
-                UI.showError("Error: Couldn't save note");
+                UI.showError("Error: Couldn't save contact");
             }
         });
     },

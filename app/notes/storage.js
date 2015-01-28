@@ -1,6 +1,12 @@
-var Storage = require('../storage.js');
-var UI = require('../ui.js');
-var Models = require('./models.js');
+/**
+ * storage.js
+ * ----------
+ * Storage instance for Notes module
+ */
+
+var Storage = require('../storage');
+var UI = require('../ui');
+var Models = require('./models');
 
 var NotesStorage = Storage.extend({
     collection: Models.NotesCollection,

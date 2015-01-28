@@ -1,3 +1,9 @@
+/**
+ * config.js
+ * ---------
+ * Main configuration file
+ */
+ 
 module.exports = {
     //notes config
     Notes: {

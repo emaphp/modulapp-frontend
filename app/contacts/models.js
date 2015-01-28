@@ -1,5 +1,11 @@
+/**
+ * models.js
+ * ---------
+ * Models for Contacts module
+ */
+
 var Backbone = require('backbone');
-var Config = require('../config.js');
+var Config = require('../config');
 
 var Contact = Backbone.Model.extend({
     urlRoot: Config.Contacts.endPoint,

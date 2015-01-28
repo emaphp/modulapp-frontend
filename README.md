@@ -4,6 +4,15 @@ modulapp-frontend
 A modular app made with MarionetteJS and Webpack
 
 <br/>
+###Changelog
+
+**2014/01/28**
+
+ * Added support for Font-Awesome 4.3.0.
+ * Updated dependencies.
+ * Added: Gruntfile.js.
+
+<br/>
 ###About
 
 Modulapp is a modular demo app made with [MarionetteJS](http://marionettejs.com/ "") using [Webpack](http://webpack.github.io/ ""). It features a small application for managing personal notes and contacts using a modular structure. Modulapp is implemented using the following list of libraries:
@@ -11,15 +20,15 @@ Modulapp is a modular demo app made with [MarionetteJS](http://marionettejs.com/
  * **Frameworks**
   * [JQuery](http://jquery.com/ "")
   * [Backbone](http://backbonejs.org/ "")
-  * [MarionetteJS](http://marionettejs.com/ "")
   * [Underscore](http://underscorejs.org/ "")
-  * [Backbone.Validation](https://github.com/thedersen/backbone.validation "")
-
+  * [MarionetteJS](http://marionettejs.com/ "")
+ 
 <br/>
  * **Addons**
-  * [Font-Awesome](http://fortawesome.github.io/Font-Awesome/ "")
+  * [Font-Awesome](http://fortawesome.github.io/Font-Awesome/ "") (4.3.0)
   * [Handlebars](http://handlebarsjs.com/ "")
   * [Backbone.Notifier](https://github.com/emaphp/backbone.notifier "") (fork)
+  * [Backbone.Validation](https://github.com/thedersen/backbone.validation "")
 
 <br/>
  * **Loaders**
@@ -50,6 +59,21 @@ $ npm install
 
 ```bash
 $ webpack
+```
+
+<br/>
+###Grunt
+
+Modulapp already comes with a *Gruntfile.js*. Doing 
+
+```bash
+$ grunt
+```
+
+will compile the application and initilize the *webpack-dev-server* in port 8080. Webpack will also watch for changes in your files and recompile when necessary. We can also compile a production ready bundle doing
+
+```bash
+$ grunt build
 ```
 
 <br/>
