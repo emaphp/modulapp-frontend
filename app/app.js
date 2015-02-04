@@ -11,7 +11,7 @@ var Marionette = require('marionette');
 var App = new Marionette.Application();
 
 App.addRegions({
-    appLayout: '#app-layout'
+    body: 'body'
 });    
 
 //load modules
@@ -27,7 +27,26 @@ App.on('start', function() {
      */
     
     var Layout = require('./layout');
-    App.getRegion("appLayout").show(Layout); 
+    App.getRegion("body").show(Layout); 
+
+    /**
+     * SETUP MAIN ROUTER
+     */
+    
+    var Router = Marionette.AppRouter.extend({
+        appRoutes: {
+            "": 'showMain'
+        },
+
+        controller: {
+            showMain: function() {
+                var Views = require('./views');
+                Layout.getRegion("contentRegion").show(new Views.AppContentView());
+            }
+        },
+    });
+
+    var router = new Router();
 
     /**
      * START HISTORY

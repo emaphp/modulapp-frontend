@@ -27,7 +27,8 @@ var ContactView = Marionette.ItemView.extend({
         "click .delete": "delete"
     },
 
-    delete: function() {
+    delete: function(evnt) {
+        evnt.preventDefault();
         UI.showLoader("Deleting contact...");
         this.model.destroy({
             success: function() {
@@ -43,6 +44,7 @@ var ContactView = Marionette.ItemView.extend({
 
 var ContactEmptyView = Marionette.ItemView.extend({
     tagName: 'div',
+    className: 'pure-u-1-1',
 
     template: function() {
         return require('./templates/_empty.html');
@@ -53,6 +55,7 @@ var ContactListView = Marionette.CompositeView.extend({
     emptyView: ContactEmptyView,
     childView: ContactView,
     childViewContainer: '#contacts-list',
+    className: 'pure-u-1-1',
 
     initialize: function initialize(options) {
         this.contacts = options.collection;
@@ -110,7 +113,8 @@ var ContactDetailView = Marionette.ItemView.extend({
 
 var ContactCreateView = Marionette.ItemView.extend({
     tagName: 'div',
-    
+    className: 'pure-u-1-1',
+
     initialize: function() {
         var Validation = require('backbone-validation');
         Validation.bind(this, {
@@ -167,7 +171,8 @@ var ContactCreateView = Marionette.ItemView.extend({
 
 var ContactEditView = Marionette.ItemView.extend({
     tagName: 'div',
-
+    className: 'pure-u-1-1',
+    
     initialize: function(options) {
         this.contact = options.model.clone();
         var Validation = require('backbone-validation');

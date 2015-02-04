@@ -6,6 +6,7 @@
 
 var Marionette = require('marionette');
 var Notifier = require('backbone.notifier');
+var Config = require('./config');
 
 var UI = Marionette.Object.extend({
     showFormErrors: function(errors) {
@@ -21,7 +22,7 @@ var UI = Marionette.Object.extend({
         this.notify = notifier.notify({
             message: msg,
             type: 'error',
-            position: 'top',
+            position: Config.Notifier.position,
             ms: 5000
         });
     },
@@ -32,7 +33,7 @@ var UI = Marionette.Object.extend({
         this.notify = notifier.notify({
             message: err,
             type: 'error',
-            position: 'top',
+            position: Config.Notifier.position,
             ms: 5000
         });
     },
@@ -43,7 +44,7 @@ var UI = Marionette.Object.extend({
         this.notify = notifier.notify({
             message: info,
             type: 'info',
-            position: 'top',
+            position: Config.Notifier.position,
             ms: 3000
         });
     },
@@ -54,7 +55,7 @@ var UI = Marionette.Object.extend({
         this.notify = notifier.notify({
             message: success,
             type: 'success',
-            position: 'top',
+            position: Config.Notifier.position,
             ms: 3000
         });
     },

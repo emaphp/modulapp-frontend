@@ -1,5 +1,13 @@
+/**
+ * WEBFONTS
+ */
+
 @import url(http://fonts.googleapis.com/css?family=Comfortaa);
 @import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+/**
+ * GENERAL
+ */
 
 * {
     box-sizing: border-box;
@@ -9,8 +17,7 @@ a {
     text-decoration: none;
     color: rgb(61, 146, 201);
 }
-a:hover,
-a:focus {
+a:hover, a:focus {
     text-decoration: underline;
 }
 
@@ -24,7 +31,9 @@ body {
     background: -ms-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
     background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=1 );
+    font-family: "Open-Sans", sans-serif, serif;
 }
+
 /**
  * MENU HEADER
  */
@@ -34,9 +43,11 @@ body {
     text-align: center;
     box-shadow: 0 1px 1px rgba(0,0,0, 0.10);
 }
+
 .home-menu.pure-menu-open {
     background: #2d3e50;
 }
+
 .pure-menu.pure-menu-open.pure-menu-fixed {
     border-bottom: none;
     z-index: 4;

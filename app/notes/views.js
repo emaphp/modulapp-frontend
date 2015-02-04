@@ -26,7 +26,8 @@ var NoteView = Marionette.ItemView.extend({
         "click .delete": "delete"
     },
 
-    delete: function() {
+    delete: function(evnt) {
+        evnt.preventDefault();
         UI.showLoader("Deleting note...");
         this.model.destroy({
             success: function() {
@@ -42,6 +43,7 @@ var NoteView = Marionette.ItemView.extend({
 
 var NoteEmptyListView = Marionette.ItemView.extend({
     tagName: 'div',
+    className: "pure-u-1-1",
 
     template: function() {
         return require('./templates/_empty.html');
@@ -52,6 +54,7 @@ var NoteListView = Marionette.CompositeView.extend({
     emptyView: NoteEmptyListView,
     childView: NoteView,
     childViewContainer: '#notes-list',
+    className: "pure-u-1-1",
 
     template: function() {
         return require('./templates/list.html');
@@ -60,7 +63,8 @@ var NoteListView = Marionette.CompositeView.extend({
 
 var NoteCreateView = Marionette.ItemView.extend({
     tagName: 'div',
-    
+    className: 'pure-u-1-1',
+
     initialize: function() {
         var Validation = require('backbone-validation');
         Validation.bind(this, {
@@ -115,7 +119,8 @@ var NoteCreateView = Marionette.ItemView.extend({
 
 var NoteEditView = Marionette.ItemView.extend({
     tagName: 'div',
-
+    className: 'pure-u-1-1',
+    
     initialize: function(options) {
         this.note = options.model.clone();
         var Validation = require('backbone-validation');

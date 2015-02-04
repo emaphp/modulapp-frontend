@@ -13,5 +13,10 @@ module.exports = {
     //contacts config
     Contacts: {
         endPoint: 'http://modulapp.dev/contacts'
+    },
+
+    //notitifer config
+    Notifier: {
+        position: 'bottom' //"bottom" or "top"
     }
 };
