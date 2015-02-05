@@ -120,7 +120,6 @@ a.pure-menu-heading {
 }
 
 .content-footer .pure-button {
-    font-size: 0.8em;
     float: left;
     color: #fefefe;
     margin: 1.3em 0.3em 0 0;
@@ -285,6 +284,10 @@ a.pure-menu-heading {
     margin-top: 1em;
     font-size: 80%;
     text-align: center;;
+}
+
+.detail-footer {
+    font-size: 0.8em;
 }
 
 /**
