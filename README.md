@@ -6,11 +6,9 @@ A modular app made with MarionetteJS and Webpack
 <br/>
 ###Changelog
 
-**2014/01/28**
+**2014/02/10**
 
- * Added support for Font-Awesome 4.3.0.
- * Updated dependencies.
- * Added: Gruntfile.js.
+ * Fixed: Layout using 'body' as container instead of 'div'.
 
 <br/>
 ###About
@@ -52,13 +50,13 @@ You'll need both **npm** and **webpack** installed in your system.
 **Installing dependencies**
 
 ```bash
-$ npm install
+npm install
 ```
 
 **Compiling**
 
 ```bash
-$ webpack
+webpack
 ```
 
 <br/>
@@ -67,19 +65,19 @@ $ webpack
 Modulapp already comes with a *Gruntfile.js*. Doing 
 
 ```bash
-$ grunt
+grunt
 ```
 
 will compile the application and initilize the *webpack-dev-server* in port 8080. Webpack will also watch for changes in your files and recompile when necessary. We can also compile a production ready bundle doing
 
 ```bash
-$ grunt build
+grunt build
 ```
 
 <br/>
 ###Configuration
 
-You need to edit the configuration file *app/config.js* and set the appropiate end points for your current backend. The default configuration is the following:
+You need to edit the configuration file *app/config.js* and set the appropiate end points for your current backend. The default configuration looks like the following:
 
 ```javascript
 module.exports = {
@@ -91,6 +89,11 @@ module.exports = {
     //contacts config
     Contacts: {
         endPoint: 'http://modulapp.dev/contacts'
+    },
+    
+    //notitifer config
+    Notifier: {
+        position: 'bottom' //"bottom" or "top"
     }
 };
 ```
@@ -101,6 +104,8 @@ module.exports = {
 <br/>
 * **PHP**
  * https://github.com/emaphp/modulapp-backend-php [Slim]
+* **Node**
+ * https://github.com/emaphp/modulapp-backend-node [Express]
 
 <br/>
 ###Forks

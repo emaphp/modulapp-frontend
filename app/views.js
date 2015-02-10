@@ -7,8 +7,9 @@
 var Marionette = require('marionette');
 
 var AppLayoutView = Marionette.LayoutView.extend({
-    tagName: 'body',
-    
+    tagName: 'div',
+    className: 'pure-u-1-1',
+
     template: function() {
         return require('./layout/layout.html');
     },
