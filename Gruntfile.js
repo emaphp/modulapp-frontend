@@ -47,7 +47,8 @@ module.exports = function(grunt) {
 	});
 
 	grunt.loadNpmTasks("grunt-webpack");
-
+	grunt.loadNpmTasks('grunt-contrib-watch');
+	
 	// The development server (the recommended option for development)
 	grunt.registerTask("default", ["webpack-dev-server:start"]);
 

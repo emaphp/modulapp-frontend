@@ -8,7 +8,8 @@ A modular app made with MarionetteJS and Webpack
 
 **2014/02/12**
 
- * Added: jshont-loader
+ * Added: jshint-loader.
+ * Fix: Added grunt-contrib-watch package.
 
 <br/>
 ###About
@@ -66,10 +67,10 @@ webpack
 Modulapp already comes with a *Gruntfile.js*. Doing 
 
 ```bash
-grunt
+grunt dev
 ```
 
-will compile the application and initilize the *webpack-dev-server* in port 8080. Webpack will also watch for changes in your files and recompile when necessary. We can also compile a production ready bundle doing
+will compile the application for development mode. Grunt will also watch for changes in your files and recompile when necessary. We can also compile a production ready bundle doing
 
 ```bash
 grunt build
