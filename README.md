@@ -6,9 +6,9 @@ A modular app made with MarionetteJS and Webpack
 <br/>
 ###Changelog
 
-**2014/02/10**
+**2014/02/12**
 
- * Fixed: Layout using 'body' as container instead of 'div'.
+ * Added: jshont-loader
 
 <br/>
 ###About
@@ -20,11 +20,11 @@ Modulapp is a modular demo app made with [MarionetteJS](http://marionettejs.com/
   * [Backbone](http://backbonejs.org/ "")
   * [Underscore](http://underscorejs.org/ "")
   * [MarionetteJS](http://marionettejs.com/ "")
+  * [Handlebars](http://handlebarsjs.com/ "")
  
 <br/>
  * **Addons**
   * [Font-Awesome](http://fortawesome.github.io/Font-Awesome/ "") (4.3.0)
-  * [Handlebars](http://handlebarsjs.com/ "")
   * [Backbone.Notifier](https://github.com/emaphp/backbone.notifier "") (fork)
   * [Backbone.Validation](https://github.com/thedersen/backbone.validation "")
 
@@ -37,6 +37,7 @@ Modulapp is a modular demo app made with [MarionetteJS](http://marionettejs.com/
   * [font-awesome-webpack](https://github.com/gowravshekar/font-awesome-webpack "")
   * [underscore-template-loader](https://github.com/emaphp/underscore-template-loader "")
   * [handlebars-template-loader](https://github.com/emaphp/handlebars-template-loader "")
+  * [jshint-loader](https://github.com/webpack/jshint-loader "")
 
 <br/>
 Modulapp requires a backend in order to work. Check the [Backends](#Backends "") section for a list of available backends.

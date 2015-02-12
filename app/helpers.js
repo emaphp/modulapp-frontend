@@ -12,12 +12,7 @@ Handlebars.registerHelper('contact-name', function() {
         fullname += ' ' + this.surname;
     }
 
-    var link = '<a href="#contacts/detail/'
-    + this.id
-    + '">'
-    + fullname
-    + '</a>';
-
+    var link = '<a href="#contacts/detail/' + this.id + '">' + fullname + '</a>';
     return new Handlebars.SafeString(link);
 });
 

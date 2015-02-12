@@ -15,7 +15,7 @@ var NotesModule = Marionette.Module.extend({
         //initialize router
         var Router = require('./router.js');
         var Controller = require('./controller.js');
-        this.router = new Router(new Controller);
+        this.router = new Router(new Controller());
     }
 });
 

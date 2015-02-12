@@ -21,6 +21,14 @@ module.exports = {
         fs: "empty"
     },
     module: {
+        preLoaders: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'jshint-loader'
+            }
+        ],
+
         loaders: [
             { test: /\.css$/, loader: "style!css" },
             { test: /\.html/, loader: "underscore-template-loader" },
@@ -38,5 +46,9 @@ module.exports = {
 			jQuery: "jquery",
 			$: "jquery"
 		})
-	]
+	],
+    jshint: {
+        emitErrors: false,
+        failOnHint: false
+    }
 };

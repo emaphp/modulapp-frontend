@@ -14,7 +14,7 @@ var UI = Marionette.Object.extend({
 
         var msg = "<strong>Please correct the following errors:</strong>";
 
-        for (error in errors) {
+        for (var error in errors) {
             msg += "<br/>" + errors[error];
         }
         

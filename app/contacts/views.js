@@ -69,7 +69,7 @@ var ContactListView = Marionette.CompositeView.extend({
     filterList: function(evnt) {
         var filter = this.$el.find('#filter').val();
 
-        if (filter != "") {
+        if (filter !== "") {
             var regex = new RegExp(filter.replace(/([.*+?^${}()|\[\]\/\\])/g, "\\$1"), 'i');
             var filtered = this.contacts.filter(function(contact) {
                 if (contact.get('name').match(regex)) {
