@@ -13,6 +13,7 @@ var NotesStorage = Storage.extend({
     
     success: function() {
         console.log("NotesCollection fetched correctly");
+        UI.clean();
     },
     
     error: function() {

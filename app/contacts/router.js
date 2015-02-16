@@ -4,9 +4,9 @@
  * Router class for Contacts module
  */
  
-var Router = require('../router');
+var Marionette = require('marionette');
 
-var ContactsRouter = Router.extend({
+var ContactsRouter = Marionette.AppRouter.extend({
     initialize: function(controller) {
         //set controller
         this.controller = controller;

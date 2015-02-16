@@ -12,7 +12,8 @@ module.exports = {
 
     //contacts config
     Contacts: {
-        endPoint: 'http://modulapp.dev/contacts'
+        endPoint: 'http://modulapp.dev/contacts',
+        filterDelay: 250 //contact filter delay in ms
     },
 
     //notitifer config

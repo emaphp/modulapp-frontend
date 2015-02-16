@@ -5,20 +5,15 @@
  */
 
 var Marionette = require('marionette');
-var UI = require('./ui');
 
 var Storage = Marionette.Object.extend({
-    fetch: function() {
-        if (typeof(this.data) == 'undefined') {
-            this.data = new this.collection();
-            UI.showLoader();
-            this.data.fetch({
-                success: this.success,
-                error: this.error
-            });
-        }
+    isReady: function() {
+        return typeof(this.data) != 'undefined';
+    },
 
-        return this.data;
+    fetch: function() {
+        this.data = new this.collection();
+        return this.data.fetch();
     },
 
     get: function(id) {

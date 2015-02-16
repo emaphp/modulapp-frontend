@@ -6,9 +6,11 @@
 
 var Backbone = require('backbone');
 var Config = require('../config');
+var Model = require('../model');
+var Collection = require('../collection');
 var moment = require('moment');
 
-var Note = Backbone.Model.extend({
+var Note = Model.extend({
     urlRoot: Config.Notes.endPoint,
     validation: {
         title: {
@@ -20,7 +22,7 @@ var Note = Backbone.Model.extend({
     }
 });
 
-var NotesCollection = Backbone.Collection.extend({
+var NotesCollection = Collection.extend({
     model: Note,
     url: Config.Notes.endPoint,
     comparator: function (n1, n2) {

@@ -3,10 +3,9 @@
  * ---------
  * Router class for Notes module
  */
- 
-var Router = require('../router.js');
+var Marionette = require('marionette');
 
-var NotesRouter = Router.extend({
+var NotesRouter = Marionette.AppRouter.extend({
     initialize: function(controller) {
         //set controller
         this.controller = controller;

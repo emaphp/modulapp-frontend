@@ -9,6 +9,7 @@ var Marionette = require('marionette');
 var Models = require('./models');
 var _ = require('underscore');
 var UI = require('../ui');
+var Config = require('../config');
 
 var ContactView = Marionette.ItemView.extend({
     model: Models.Contact,
@@ -30,14 +31,11 @@ var ContactView = Marionette.ItemView.extend({
     delete: function(evnt) {
         evnt.preventDefault();
         UI.showLoader("Deleting contact...");
-        this.model.destroy({
-            success: function() {
-                UI.showSuccess('Contact deleted succesfully');
-            },
-            error: function() {
-                UI.showError("Error: Failed to delete contact");
-            },
-            wait: true,
+        this.model.destroy({wait: true})
+        .then(function() {
+            UI.showSuccess('Contact deleted succesfully');
+        }, function() {
+            UI.showError("Error: Failed to delete contact");
         });
     }
 });
@@ -59,7 +57,7 @@ var ContactListView = Marionette.CompositeView.extend({
 
     initialize: function initialize(options) {
         this.contacts = options.collection;
-        this.applyFilter = _.debounce(this.filterList, 225);
+        this.applyFilter = _.debounce(this.filterList, Config.Contacts.filterDelay);
     },
 
     events: {
@@ -149,17 +147,14 @@ var ContactCreateView = Marionette.ItemView.extend({
 
         UI.showLoader("Saving contact...");
 
-        this.model.save(this.model.attributes, {
-            wait: true,
-            success: function(model) {
-                require('./storage').add(model);
-                Backbone.history.navigate("contacts/list", true);
-                UI.showSuccess('Contact saved succesfully');
-            },
-            error: function() {
-                Backbone.history.navigate("contacts/list", true);
-                UI.showError("Error: Couldn't save contact");
-            }
+        this.model.save(this.model.attributes, {wait: true})
+        .then(function(values) {
+            require('./storage').add(values.model);
+            Backbone.history.navigate("contacts/list", true);
+            UI.showSuccess('Contact saved succesfully');
+        }, function() {
+            Backbone.history.navigate("contacts/list", true);
+            UI.showError("Error: Couldn't save contact");
         });
     },
 
@@ -210,17 +205,14 @@ var ContactEditView = Marionette.ItemView.extend({
 
         UI.showLoader("Saving contact...");
 
-        this.model.save(this.contact.attributes, {
-            wait: true,
-            success: function(model) {
-                require('./storage.js').add(model);
-                Backbone.history.navigate("contacts/list", true);
-                UI.showSuccess('Contact updated succesfully');
-            },
-            error: function() {
-                Backbone.history.navigate("contacts/list", true);
-                UI.showError("Error: Couldn't save contact");
-            }
+        this.model.save(this.contact.attributes, {wait: true}).
+        then(function(values) {
+            require('./storage.js').add(values.model);
+            Backbone.history.navigate("contacts/list", true);
+            UI.showSuccess('Contact updated succesfully');
+        }, function() {
+            Backbone.history.navigate("contacts/list", true);
+            UI.showError("Error: Couldn't save contact");
         });
     },
 

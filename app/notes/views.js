@@ -29,14 +29,11 @@ var NoteView = Marionette.ItemView.extend({
     delete: function(evnt) {
         evnt.preventDefault();
         UI.showLoader("Deleting note...");
-        this.model.destroy({
-            success: function() {
-                UI.showSuccess('Note deleted succesfully');
-            },
-            error: function() {
-                UI.showError("Error: Failed to delete note");
-            },
-            wait: true,
+        this.model.destroy({wait: true})
+        .then(function() {
+            UI.showSuccess('Note deleted succesfully');
+        }, function() {
+            UI.showError("Error: Failed to delete note");
         });
     }
 });
@@ -97,17 +94,14 @@ var NoteCreateView = Marionette.ItemView.extend({
 
         UI.showLoader("Saving note...");
         
-        this.model.save(this.model.attributes, {
-            wait: true,
-            success: function(model) {
-                require('./storage.js').add(model);
-                Backbone.history.navigate("notes/list", true);
-                UI.showSuccess('Note saved succesfully');
-            },
-            error: function() {
-                Backbone.history.navigate("notes/list", true);
-                UI.showError("Error: Couldn't save note");
-            }
+        this.model.save(this.model.attributes, {wait: true})
+        .then(function(values) {
+            require('./storage.js').add(values.model);
+            Backbone.history.navigate("notes/list", true);
+            UI.showSuccess('Note saved succesfully');
+        }, function() {
+            Backbone.history.navigate("notes/list", true);
+            UI.showError("Error: Couldn't save note");
         });
     },
     
@@ -155,17 +149,14 @@ var NoteEditView = Marionette.ItemView.extend({
         
         UI.showLoader("Saving note...");
 
-        this.model.save(this.note.attributes, {
-            wait: true,
-            success: function(model) {
-                require('./storage.js').add(model);
-                Backbone.history.navigate("notes/list", true);
-                UI.showSuccess('Note updated succesfully');
-            },
-            error: function() {
-                Backbone.history.navigate("notes/list", true);
-                UI.showError("Error: Couldn't save note");
-            }
+        this.model.save(this.note.attributes, {wait: true})
+        .then(function(values) {
+            require('./storage.js').add(values.model);
+            Backbone.history.navigate("notes/list", true);
+            UI.showSuccess('Note updated succesfully');
+        }, function() {
+            Backbone.history.navigate("notes/list", true);
+            UI.showError("Error: Couldn't save note");
         });
     },
 

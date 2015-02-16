@@ -6,8 +6,10 @@
 
 var Backbone = require('backbone');
 var Config = require('../config');
+var Model = require('../model');
+var Collection = require('../collection');
 
-var Contact = Backbone.Model.extend({
+var Contact = Model.extend({
     urlRoot: Config.Contacts.endPoint,
     validation: {
         name: {
@@ -29,7 +31,7 @@ var Contact = Backbone.Model.extend({
     }
 });
 
-var ContactsCollection = Backbone.Collection.extend({
+var ContactsCollection = Collection.extend({
     model: Contact,
     comparator: 'name',
     url: Config.Contacts.endPoint

@@ -6,10 +6,10 @@ A modular app made with MarionetteJS and Webpack
 <br/>
 ###Changelog
 
-**2014/02/12**
+**2014/02/16**
 
- * Added: jshint-loader.
- * Fix: Added grunt-contrib-watch package.
+ * Modified: Fetching data using Backbone-Promised and Q.
+ * Fix: Loader being removed before fetching data.
 
 <br/>
 ###About
@@ -28,6 +28,7 @@ Modulapp is a modular demo app made with [MarionetteJS](http://marionettejs.com/
   * [Font-Awesome](http://fortawesome.github.io/Font-Awesome/ "") (4.3.0)
   * [Backbone.Notifier](https://github.com/emaphp/backbone.notifier "") (fork)
   * [Backbone.Validation](https://github.com/thedersen/backbone.validation "")
+  * [Backbone-Promised](https://github.com/jsantell/backbone-promised "")
 
 <br/>
  * **Loaders**

@@ -13,6 +13,7 @@ var CollectionsStorage = Storage.extend({
     
     success: function() {
         console.log("ContactsCollection fetched correctly");
+        UI.clean();
     },
     
     error: function() {
