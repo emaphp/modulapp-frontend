@@ -5,10 +5,10 @@
  */
 
 var Marionette = require('marionette');
+var Radio = require('backbone.radio');
 var Views = require('./views');
 var Models = require('./models');
 var Storage = require('./storage');
-var Layout = require('../layout');
 var UI = require('../ui');
 
 var NotesController = Marionette.Controller.extend({
@@ -26,19 +26,19 @@ var NotesController = Marionette.Controller.extend({
     list: function() {
         this._sync();
         var view = new Views.NoteListView({collection: Storage.data});
-        Layout.contentRegion.show(view);
+        Radio.channel('layout').command('set:content', view);
     },
 
     create: function() {
         this._sync();
         var view = new Views.NoteCreateView({model: new Models.Note()});
-        Layout.contentRegion.show(view);
+        Radio.channel('layout').command('set:content', view);
     },
 
     edit: function(id) {
         this._sync();
         var view = new Views.NoteEditView({model: Storage.get(id)});
-        Layout.contentRegion.show(view);
+        Radio.channel('layout').command('set:content', view);
     }
 });
 

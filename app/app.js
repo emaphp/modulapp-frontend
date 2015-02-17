@@ -6,10 +6,13 @@
 
 var Backbone = require('backbone');
 var Marionette = require('marionette');
+var Radio = require('backbone.radio');
+var Views = require('./views');
 
 //create app
 var App = new Marionette.Application();
 
+//define a default region where layout will be rendered
 App.addRegions({
     body: 'body'
 });    
@@ -26,22 +29,22 @@ App.on('start', function() {
      * INITIALIZE LAYOUT
      */
     
-    var Layout = require('./layout');
-    App.getRegion("body").show(Layout); 
+    var Layout = Views.AppLayoutView;
+    App.getRegion("body").show(new Layout()); 
 
     /**
      * SETUP MAIN ROUTER
      */
     
     var Router = Marionette.AppRouter.extend({
-        appRoutes: {
-            "": 'showMain'
+        routes: {
+            "": 'showContent'
         },
 
         controller: {
-            showMain: function() {
-                var Views = require('./views');
-                Layout.getRegion("contentRegion").show(new Views.AppContentView());
+            //renders default view in content region
+            showContent: function() {
+                Radio.channel('layout').command('set:content', new Views.AppContentView());
             }
         },
     });

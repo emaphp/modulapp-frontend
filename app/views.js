@@ -5,7 +5,9 @@
  */
 
 var Marionette = require('marionette');
+var Radio = require('backbone.radio');
 
+//layout view
 var AppLayoutView = Marionette.LayoutView.extend({
     tagName: 'div',
     className: 'pure-u-1-1',
@@ -19,12 +21,20 @@ var AppLayoutView = Marionette.LayoutView.extend({
         contentRegion: '#content-region'
     },
     
+    initialize: function() {
+        //setup a channel for layout content
+        Radio.channel('layout').comply('set:content', function(view) {
+            this.getRegion("contentRegion").show(view);
+        }, this);
+    },
+
     onBeforeShow: function() {
         this.getRegion("headerRegion").show(new AppHeaderView());
         this.getRegion("contentRegion").show(new AppContentView());
     }
 });
 
+//header view
 var AppHeaderView = Marionette.ItemView.extend({
     className: 'pure-u-1-1',
     
@@ -54,6 +64,7 @@ var AppHeaderView = Marionette.ItemView.extend({
     }
 });
 
+//content view
 var AppContentView = Marionette.ItemView.extend({
     className: 'pure-u-1-1',
 
