@@ -13,7 +13,7 @@ require('purecss/forms-min.css');
 //additional styles
 require('../assets/css/styles.css');
 
-//handlebars helpers
+//handlebars + validation helpers
 require('./helpers');
 
 //backbone.notifier styles
@@ -24,5 +24,5 @@ require('backbone.notifier/css/notifier-theme-plastic.css');
 var $ = require('jquery');
 
 $(document).on('ready', function() {
-    require('./app.js').start();
+    require('./app').start();
 });

@@ -2,7 +2,7 @@
     <header class="note-header">
         <span class="note-title"><%=title%></span>
         &nbsp;-&nbsp;
-        <em class="note-date">Created&nbsp;<a href="#"><% print(require('moment')(createdAt).fromNow()) %></a></em>
+        <em class="note-date">Created&nbsp;<a href="#notes/list"><% print(require('moment')(createdAt).fromNow()) %></a></em>
     </header>
     <div class="note-body">
         <p><%=body%></p>

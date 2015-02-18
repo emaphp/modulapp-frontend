@@ -3,7 +3,9 @@
  * ---------
  * Router class for Notes module
  */
+
 var Marionette = require('marionette');
+var contextChannel = require('backbone.radio').channel('context');
 
 var NotesRouter = Marionette.AppRouter.extend({
     initialize: function(controller) {
@@ -16,6 +18,10 @@ var NotesRouter = Marionette.AppRouter.extend({
             "notes/create": "create",
             "notes/edit/:id": "edit"
         });
+    },
+
+    onRoute: function(name, path) {
+        contextChannel.command('set', 'notes');
     }
 });
 

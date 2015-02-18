@@ -38,24 +38,35 @@ App.on('start', function() {
     
     var Router = Marionette.AppRouter.extend({
         routes: {
-            "": 'showContent'
+            "": false
         },
 
-        controller: {
-            //renders default view in content region
-            showContent: function() {
-                Radio.channel('layout').command('set:content', new Views.AppContentView());
-            }
-        },
+        //onRoute hack
+        onRoute: function(name, path) {
+            Radio.channel('context').command('set', '');
+            Radio.channel('layout').command('set:content', new Views.AppContentView());
+        }
     });
 
     var router = new Router();
+
+    /**
+     * ENABLE NOTIFICATIONS
+     */
+    
+    var UI = require('./ui');
+    ui = new UI();
 
     /**
      * START HISTORY
      */
     
     Backbone.history.start();
+
+    //setup nav channel
+    Radio.channel('nav').comply('navigate', function(route) {
+        Backbone.history.navigate(route, true);
+    });
 });
 
 module.exports = App;

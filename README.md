@@ -6,10 +6,9 @@ A modular app made with MarionetteJS and Webpack
 <br/>
 ###Changelog
 
-**2014/02/16**
+**2014/02/18**
 
- * Modified: Fetching data using Backbone-Promised and Q.
- * Fix: Loader being removed before fetching data.
+ * Added: Backbone.Radio.
 
 <br/>
 ###About
@@ -29,6 +28,7 @@ Modulapp is a modular demo app made with [MarionetteJS](http://marionettejs.com/
   * [Backbone.Notifier](https://github.com/emaphp/backbone.notifier "") (fork)
   * [Backbone.Validation](https://github.com/thedersen/backbone.validation "")
   * [Backbone-Promised](https://github.com/jsantell/backbone-promised "")
+  * [Backbone.Radio](https://github.com/marionettejs/backbone.radio "")
 
 <br/>
  * **Loaders**

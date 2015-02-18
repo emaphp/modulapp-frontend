@@ -5,21 +5,12 @@
  */
 
 var Storage = require('../storage');
-var UI = require('../ui');
 var Models = require('./models');
+var notify = require('backbone.radio').channel('notify');
 
 var CollectionsStorage = Storage.extend({
     collection: Models.ContactsCollection,
-    
-    success: function() {
-        console.log("ContactsCollection fetched correctly");
-        UI.clean();
-    },
-    
-    error: function() {
-        console.log("Failed to fetch ContactsCollection");
-        UI.showError("Error: Couldn't fetch contacts");
-    }
+    errorMessage: "Couldn't fetch contacts"
 });
 
 module.exports = new CollectionsStorage();

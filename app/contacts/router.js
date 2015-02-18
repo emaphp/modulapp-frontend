@@ -5,6 +5,7 @@
  */
  
 var Marionette = require('marionette');
+var contextChannel = require('backbone.radio').channel('context');
 
 var ContactsRouter = Marionette.AppRouter.extend({
     initialize: function(controller) {
@@ -18,6 +19,10 @@ var ContactsRouter = Marionette.AppRouter.extend({
             "contacts/create": "create",
             "contacts/edit/:id": "edit"
         });
+    },
+
+    onRoute: function(name, path) {
+         contextChannel.command('set', 'contacts');
     }
 });
 

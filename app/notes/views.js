@@ -4,22 +4,27 @@
  * Views for Notes module
  */
 
-var Backbone = require('backbone');
 var Marionette = require('marionette');
 var Models = require('./models');
-var UI = require('../ui');
+var storage = require('./storage');
+var navChannel = require('backbone.radio').channel('nav');
+var notify = require('backbone.radio').channel('notify');
 
 var NoteView = Marionette.ItemView.extend({
     model: Models.Note,
     tagName: 'div',
     className: "pure-u-1-1 pure-u-sm-1-1 pure-u-md-1-2 pure-u-lg-1-4",
     
-    initialize: function() {
-        this.listenTo(this.model, "change", this.render);
-    },
-
     template: function(model) {
         return require('./templates/_item.html')(model);
+    },
+
+    initialize: function() {
+        this.listenTo(this.model, 'change', this.render);
+
+        this.listenTo(this.model, 'before:destroy', function() {
+            notify.command('show:loader', 'Deleting note...');
+        });
     },
 
     events: {
@@ -28,12 +33,12 @@ var NoteView = Marionette.ItemView.extend({
 
     delete: function(evnt) {
         evnt.preventDefault();
-        UI.showLoader("Deleting note...");
+        this.model.trigger('before:destroy');
         this.model.destroy({wait: true})
         .then(function() {
-            UI.showSuccess('Note deleted succesfully');
+            notify.command('show:success', 'Note deleted succesfully');
         }, function() {
-            UI.showError("Error: Failed to delete note");
+            notify.command('show:error', 'Failed to delete note');
         });
     }
 });
@@ -41,10 +46,7 @@ var NoteView = Marionette.ItemView.extend({
 var NoteEmptyListView = Marionette.ItemView.extend({
     tagName: 'div',
     className: "pure-u-1-1",
-
-    template: function() {
-        return require('./templates/_empty.html');
-    }
+    template: require('./templates/_empty.html')
 });
 
 var NoteListView = Marionette.CompositeView.extend({
@@ -52,27 +54,33 @@ var NoteListView = Marionette.CompositeView.extend({
     childView: NoteView,
     childViewContainer: '#notes-list',
     className: "pure-u-1-1",
-
-    template: function() {
-        return require('./templates/list.html');
-    }
+    template: require('./templates/list.html')
 });
 
 var NoteCreateView = Marionette.ItemView.extend({
     tagName: 'div',
     className: 'pure-u-1-1',
+    template: require('./templates/create.html'),
 
     initialize: function() {
         var Validation = require('backbone-validation');
         Validation.bind(this, {
             selector: 'id'
         });
+
+        this.on('before:destroy', function() {
+            Validation.unbind(this);
+        });
+
+        this.listenTo(this.model, 'before:save', function() {
+            notify.command('show:loader', 'Saving note...');
+        });
+
+        this.listenTo(this.model, 'sync', function(model) {
+            storage.add(model);
+        });
     },
 
-    template: function() {
-        return require('./templates/create.html');
-    },
-    
     events: {
         "click .save": "save",
     },
@@ -87,27 +95,18 @@ var NoteCreateView = Marionette.ItemView.extend({
         });
 
         var errors = this.model.validate();
-        if (errors) {
-            UI.showFormErrors(errors);
-            return;
-        }
+        if (errors)
+            return notify.command('validation:error', errors);
 
-        UI.showLoader("Saving note...");
-        
+        this.model.trigger('before:save');
         this.model.save(this.model.attributes, {wait: true})
         .then(function(values) {
-            require('./storage.js').add(values.model);
-            Backbone.history.navigate("notes/list", true);
-            UI.showSuccess('Note saved succesfully');
+            navChannel.command('navigate', 'notes/list');
+            notify.command('show:success', 'Note saved succesfully');
         }, function() {
-            Backbone.history.navigate("notes/list", true);
-            UI.showError("Error: Couldn't save note");
+            navChannel.command('navigate', 'notes/list');
+            notify.command('show:error', "Couldn't save note");
         });
-    },
-    
-    remove: function() {
-        var Validation = require('backbone-validation');
-        Validation.unbind(this);
     }
 });
 
@@ -115,6 +114,10 @@ var NoteEditView = Marionette.ItemView.extend({
     tagName: 'div',
     className: 'pure-u-1-1',
     
+    template: function(model) {
+        return require('./templates/edit.html')(model);
+    },
+
     initialize: function(options) {
         this.note = options.model.clone();
         var Validation = require('backbone-validation');
@@ -122,11 +125,18 @@ var NoteEditView = Marionette.ItemView.extend({
             selector: 'id',
             model: this.note
         });
-    },
 
-    template: function(model) {
-        var tpl = require('./templates/edit.html');
-        return tpl(model);
+        this.on('before:destroy', function() {
+            Validation.unbind(this);
+        });
+
+        this.listenTo(this.model, 'before:save', function() {
+            notify.command('show:loader', 'Saving note...');
+        });
+
+        this.listenTo(this.model, 'sync', function(model) {
+            storage.add(model);
+        });
     },
 
     events: {
@@ -142,27 +152,18 @@ var NoteEditView = Marionette.ItemView.extend({
         });
 
         var errors = this.note.validate();
-        if (errors) {
-            UI.showFormErrors(errors);
-            return;
-        }
+        if (errors)
+            return notify.command('validation:error', errors);
         
-        UI.showLoader("Saving note...");
-
+        this.model.trigger('before:save');
         this.model.save(this.note.attributes, {wait: true})
         .then(function(values) {
-            require('./storage.js').add(values.model);
-            Backbone.history.navigate("notes/list", true);
-            UI.showSuccess('Note updated succesfully');
+            navChannel.command('navigate', 'notes/list');
+            notify.command('show:success', 'Note updated succesfully');
         }, function() {
-            Backbone.history.navigate("notes/list", true);
-            UI.showError("Error: Couldn't save note");
+            navChannel.command('navigate', 'notes/list');
+            notify.command('show:error', "Couldn't save note");
         });
-    },
-
-    remove: function() {
-        var Validation = require('backbone-validation');
-        Validation.unbind(this);
     }
 });
 

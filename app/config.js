@@ -16,7 +16,7 @@ module.exports = {
         filterDelay: 250 //contact filter delay in ms
     },
 
-    //notitifer config
+    //notifier config
     Notifier: {
         position: 'bottom' //"bottom" or "top"
     }
