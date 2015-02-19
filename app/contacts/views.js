@@ -11,11 +11,12 @@ var Config = require('../config');
 var storage = require('./storage');
 var navChannel = require('backbone.radio').channel('nav');
 var notify = require('backbone.radio').channel('notify');
+var debug = require('backbone.radio').channel('debug');
 
 var ContactView = Marionette.ItemView.extend({
     model: Models.Contact,
     tagName: 'div',
-    className: "pure-u-1-1 pure-u-sm-1-1 pure-u-md-1-2 pure-u-lg-1-4",
+    className: "contact-item pure-u-1-1 pure-u-sm-1-1 pure-u-md-1-2 pure-u-lg-1-4",
     
     template: function(model) {
         return require('./templates/_item.hbs')(model);
@@ -26,6 +27,15 @@ var ContactView = Marionette.ItemView.extend({
 
         this.listenTo(this.model, 'before:destroy', function() {
             notify.command('show:loader', 'Deleting contact...');
+            debug.command('log', 'Deleting contact with ID ' + this.model.id + '...');
+
+            this.debugString = (function(id) {
+                return function(msg1, msg2) {
+                    if (msg2)
+                        return msg1 + ' with ID ' + id + ' ' + msg2;
+                    return msg1 + ' with ID ' + id;
+                };
+            }(this.model.id));
         });
     },
 
@@ -37,11 +47,14 @@ var ContactView = Marionette.ItemView.extend({
         evnt.preventDefault();
         
         this.model.trigger('before:destroy');
+        var debugString = this.debugString;
         this.model.destroy({wait: true})
         .then(function() {
             notify.command('show:success', 'Contact deleted succesfully');
+            debug.command('log', debugString('Contact', 'has been deleted'));
         }, function() {
             notify.command('show:error', 'Failed to delete contact');
+            debug.command('log', debugString('Failed to delete contact'));
         });
     }
 });
@@ -126,10 +139,12 @@ var ContactCreateView = Marionette.ItemView.extend({
 
         this.listenTo(this.model, 'before:save', function() {
             notify.command('show:loader', 'Saving contact...');
+            debug.command('log', 'Saving new contact...');
         });
 
         this.listenTo(this.model, 'sync', function(model) {
             storage.add(model);
+            debug.command('log', 'New contact saved with ID ' + model.get('id'));
         });
     },
 
@@ -186,10 +201,11 @@ var ContactEditView = Marionette.ItemView.extend({
 
         this.listenTo(this.model, 'before:save', function() {
             notify.command('show:loader', 'Saving contact...');
+            debug.command('log', 'Updating contact with ID ' + this.model.get('id') + '...');
         });
 
-        this.listenTo(this.model, 'sync', function(model) {
-            storage.add(model);
+        this.listenTo(this.model, 'sync', function() {
+            debug.command('log', 'Contact with ID ' + this.model.get('id') + ' has been updated');
         });
     },
 

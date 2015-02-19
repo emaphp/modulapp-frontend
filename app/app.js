@@ -17,21 +17,22 @@ App.addRegions({
     body: 'body'
 });    
 
+//setup radio
+var Config = require('./config');
+Radio.DEBUG = Config.debug;
+
+//setup debug channel
+Radio.channel('debug').comply('log', function(message) {
+    if (Config.debug)
+        console.log(message);
+});
+
 //load modules
 require('./notes/init')(App);
 require('./contacts/init')(App);
 
 //start event
 App.on('start', function() {
-    console.log("Application is starting...");
-
-    /*
-     * INITIALIZE LAYOUT
-     */
-    
-    var Layout = Views.AppLayoutView;
-    App.getRegion("body").show(new Layout()); 
-
     /**
      * SETUP MAIN ROUTER
      */
@@ -50,13 +51,19 @@ App.on('start', function() {
 
     var router = new Router();
 
+    /*
+     * INITIALIZE LAYOUT
+     */
+
+    App.getRegion("body").show(new Views.AppLayoutView()); 
+
     /**
      * ENABLE NOTIFICATIONS
      */
     
     var UI = require('./ui');
     ui = new UI();
-
+    
     /**
      * START HISTORY
      */
@@ -67,6 +74,8 @@ App.on('start', function() {
     Radio.channel('nav').comply('navigate', function(route) {
         Backbone.history.navigate(route, true);
     });
+
+    Radio.channel('debug').command('log', "Application is starting...");
 });
 
 module.exports = App;

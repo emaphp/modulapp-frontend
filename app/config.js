@@ -5,14 +5,16 @@
  */
  
 module.exports = {
+    debug: true, //log debug messages
+
     //notes config
     Notes: {
-        endPoint: 'http://modulapp.dev/notes'
+        endPoint: 'http://localhost:5000/notes'
     },
 
     //contacts config
     Contacts: {
-        endPoint: 'http://modulapp.dev/contacts',
+        endPoint: 'http://localhost:5000/contacts',
         filterDelay: 250 //contact filter delay in ms
     },
 

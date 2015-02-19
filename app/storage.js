@@ -8,35 +8,25 @@ var Marionette = require('marionette');
 var notify = require('backbone.radio').channel('notify');
 
 var Storage = Marionette.Object.extend({
-    errorMessage: 'Failed to load collection',
-
-    initialize: function() {
-        //setup event listeners
-        this.listenTo(this, 'before:fetch', this.before);
-        this.listenTo(this, 'fetch:success', this.success);
-        this.listenTo(this, 'fetch:error', this.error);
-    },
-
-    before: function() {
-        notify.command('show:loader');
-    },
-
-    success: function() {
-        notify.command('clean');
-    },
-
-    error: function() {
-        this.data = undefined;
-        notify.command('show:error', this.errorMessage);
-    },
-
     isReady: function() {
         return typeof(this.data) != 'undefined';
     },
 
-    fetch: function() {
+    fetch: function(callback) {
+        var self = this;
+        this.trigger('before:fetch');
         this.data = new this.collection();
-        return this.data.fetch();
+        return this.data.fetch()
+        .then(function() {
+            self.trigger('fetch:success', this);
+        })
+        .catch(function(error) {
+            self.trigger('fetch:error', error, this);
+        })
+        .then(callback)
+        .then(function() {
+            self.trigger('after:fetch', this);  
+        });
     },
 
     get: function(id) {

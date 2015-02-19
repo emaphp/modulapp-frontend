@@ -9,10 +9,14 @@ var Views = require('./views');
 var Models = require('./models');
 var storage = require('./storage');
 var layoutChannel = require('backbone.radio').channel('layout');
+var debug = require('backbone.radio').channel('debug');
 
 var ContactsController = Controller.extend({
+    syncErrorMessage: "Couldn't fetch contacts",
+    
     initialize: function() {
-        console.log("'Contacts' controller is being initialized...");
+        debug.command('log', "Contacts controller is being initialized...");
+        this.setupListeners(storage);
     },
 
     detail: function(id) {

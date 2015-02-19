@@ -9,6 +9,7 @@ var Models = require('./models');
 var storage = require('./storage');
 var navChannel = require('backbone.radio').channel('nav');
 var notify = require('backbone.radio').channel('notify');
+var debug = require('backbone.radio').channel('debug');
 
 var NoteView = Marionette.ItemView.extend({
     model: Models.Note,
@@ -24,6 +25,15 @@ var NoteView = Marionette.ItemView.extend({
 
         this.listenTo(this.model, 'before:destroy', function() {
             notify.command('show:loader', 'Deleting note...');
+            debug.command('log', 'Deleting note with ID ' + this.model.id + '...');
+            
+            this.debugString = (function(id) {
+                return function(msg1, msg2) {
+                    if (msg2)
+                        return msg1 + ' with ID ' + id + ' ' + msg2;
+                    return msg1 + ' with ID ' + id;
+                };
+            }(this.model.id));
         });
     },
 
@@ -33,12 +43,15 @@ var NoteView = Marionette.ItemView.extend({
 
     delete: function(evnt) {
         evnt.preventDefault();
-        this.model.trigger('before:destroy');
+        this.model.trigger('before:destroy')
+        var debugString = this.debugString;
         this.model.destroy({wait: true})
         .then(function() {
             notify.command('show:success', 'Note deleted succesfully');
+            debug.command('log', debugString('Note', 'has been deleted'));
         }, function() {
             notify.command('show:error', 'Failed to delete note');
+            debug.command('log', debugString('Failed to delete note'));
         });
     }
 });
@@ -74,10 +87,12 @@ var NoteCreateView = Marionette.ItemView.extend({
 
         this.listenTo(this.model, 'before:save', function() {
             notify.command('show:loader', 'Saving note...');
+            debug.command('log', 'Saving new note...');
         });
 
         this.listenTo(this.model, 'sync', function(model) {
             storage.add(model);
+            debug.command('log', 'New note saved with ID ' + model.get('id'));
         });
     },
 
@@ -100,7 +115,7 @@ var NoteCreateView = Marionette.ItemView.extend({
 
         this.model.trigger('before:save');
         this.model.save(this.model.attributes, {wait: true})
-        .then(function(values) {
+        .then(function() {
             navChannel.command('navigate', 'notes/list');
             notify.command('show:success', 'Note saved succesfully');
         }, function() {
@@ -132,10 +147,11 @@ var NoteEditView = Marionette.ItemView.extend({
 
         this.listenTo(this.model, 'before:save', function() {
             notify.command('show:loader', 'Saving note...');
+            debug.command('log', 'Updating note with ID ' + this.model.get('id') + '...');
         });
 
-        this.listenTo(this.model, 'sync', function(model) {
-            storage.add(model);
+        this.listenTo(this.model, 'sync', function() {
+            debug.command('log', 'Note with ID ' + this.model.get('id') + ' has been updated');
         });
     },
 

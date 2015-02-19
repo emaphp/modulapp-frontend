@@ -9,10 +9,14 @@ var Views = require('./views');
 var Models = require('./models');
 var storage = require('./storage');
 var layoutChannel = require('backbone.radio').channel('layout');
+var debug = require('backbone.radio').channel('debug');
 
 var NotesController = Controller.extend({
-    initialize: function(app) {
-        console.log("'Notes' controller is being initialized...");
+    syncErrorMessage: "Couldn't fetch notes",
+
+    initialize: function() {
+        debug.command('log', "Notes controller is being initialized...");
+        this.setupListeners(storage);
     },
 
     list: function() {
