@@ -27,8 +27,8 @@ var UI = Marionette.Object.extend({
             this.showLoader(message);
         }, this);
 
-        Radio.channel('notify').comply('clean', function() {
-            this.clean();
+        Radio.channel('notify').comply('clean', function(keepLoader) {
+            this.clean(keepLoader);
         }, this);
     },
 
@@ -99,8 +99,10 @@ var UI = Marionette.Object.extend({
         });
     },
     
-    clean: function() {
+    clean: function(keepLoader) {
         if (this.notify) {
+            if (keepLoader && this.notify.settings.loader)
+                return;
             this.notify.destroy();
         }
     }

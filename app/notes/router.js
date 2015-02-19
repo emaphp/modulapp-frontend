@@ -6,6 +6,7 @@
 
 var Marionette = require('marionette');
 var contextChannel = require('backbone.radio').channel('context');
+var notify = require('backbone.radio').channel('notify');
 
 var NotesRouter = Marionette.AppRouter.extend({
     initialize: function(controller) {
@@ -22,6 +23,7 @@ var NotesRouter = Marionette.AppRouter.extend({
 
     onRoute: function(name, path) {
         contextChannel.command('set', 'notes');
+        notify.command('clean', true);
     }
 });
 

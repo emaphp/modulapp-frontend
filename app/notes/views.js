@@ -43,7 +43,7 @@ var NoteView = Marionette.ItemView.extend({
 
     delete: function(evnt) {
         evnt.preventDefault();
-        this.model.trigger('before:destroy')
+        this.model.trigger('before:destroy');
         var debugString = this.debugString;
         this.model.destroy({wait: true})
         .then(function() {

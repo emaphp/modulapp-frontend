@@ -9,12 +9,12 @@ module.exports = {
 
     //notes config
     Notes: {
-        endPoint: 'http://localhost:5000/notes'
+        endPoint: 'http://modulapp.dev/notes'
     },
 
     //contacts config
     Contacts: {
-        endPoint: 'http://localhost:5000/contacts',
+        endPoint: 'http://modulapp.dev/contacts',
         filterDelay: 250 //contact filter delay in ms
     },
 

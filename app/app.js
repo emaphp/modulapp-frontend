@@ -46,6 +46,7 @@ App.on('start', function() {
         onRoute: function(name, path) {
             Radio.channel('context').command('set', '');
             Radio.channel('layout').command('set:content', new Views.AppContentView());
+            Radio.channel('notify').command('clean', true);
         }
     });
 
@@ -73,6 +74,7 @@ App.on('start', function() {
     //setup nav channel
     Radio.channel('nav').comply('navigate', function(route) {
         Backbone.history.navigate(route, true);
+
     });
 
     Radio.channel('debug').command('log', "Application is starting...");
