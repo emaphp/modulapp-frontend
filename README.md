@@ -4,11 +4,17 @@ modulapp-frontend
 A modular app made with MarionetteJS and Webpack
 
 <br/>
+**Live Demo:** [https://modulapp.herokuapp.com/](https://modulapp.herokuapp.com/ "")
+
+<br/>
 ###Changelog
 
-**2014/02/18**
+**2014/02/20**
 
- * Added: Backbone.Radio.
+ * Added: 'debug' channel. 'Live Demo' link.
+ * Fixed: Remove notifications from other contexts.
+ * Modified: Replace Marionette.Module with own implementation.
+ * Improved: App state preservation.
 
 <br/>
 ###About
@@ -84,6 +90,8 @@ You need to edit the configuration file *app/config.js* and set the appropiate e
 
 ```javascript
 module.exports = {
+    debug: true, //send debug messages to console
+    
     //notes config
     Notes: {
         endPoint: 'http://modulapp.dev/notes'
@@ -114,7 +122,7 @@ module.exports = {
 <br/>
 ###Forks
 
- * *None yet!*
+ * [Modulapp.Localstorage](https://github.com/emaphp/modulapp-localstorage ""): A fork using LocalStorage API (doesn't requires a backend).
 
 <br/>
 ###License
